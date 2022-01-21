@@ -3,3 +3,15 @@
 @import url(../blocks/page/page.css);
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
+@import url(../blocks/main/main.css);
+@import url(../blocks/profil/profil.css);
+@import url(../blocks/profil/__avatar/profil__avatar.css);
+@import url(../blocks/profil/__information/profil__information.css);
+@import url(../blocks/profil/__name/profil__name.css);
+@import url(../blocks/profil/__about-self/profil__about-self.css);
+@import url(../blocks/profil/__edit/profil__edit.css);
+@import url(../blocks/profil/__pen/profil__pen.css);
+@import url(../blocks/add-photo/add-photo.css);
+@import url(../blocks/add-photo/__plus/add-photo__plus.css);
+@import url(../blocks/photos/photos.css);
+@import url(../blocks/photos/__photo/photos__photo.css);

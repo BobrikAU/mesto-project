@@ -1,0 +1,13 @@
+.profil__pen{
+  width: 10px;
+  height: 10px;
+  margin: 6px;
+}
+
+@media screen and (max-width: 330px) {
+  .profil__pen {
+    width: 8px;
+    height: 8px;
+    margin: 4px;
+  }
+}

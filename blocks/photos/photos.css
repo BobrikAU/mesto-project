@@ -1,0 +1,9 @@
+.photos {
+  margin: 0;
+  padding-left: 0;
+  grid-area: photos;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 20px 17px;
+}

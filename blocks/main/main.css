@@ -1,0 +1,21 @@
+.main {
+  width: 100%;
+  max-width: 880px;
+  display: grid;
+  grid-template-columns: minmax(230px, 730px) 150px;
+  grid-template-rows: 210px auto;
+  grid-template-areas:
+  "profil adding"
+  "photos photos";
+  justify-items: stretch  ;
+}
+
+@media screen and (max-width: 330px) {
+  .main {
+    padding-left: 19px;
+    padding-right: 19px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+}

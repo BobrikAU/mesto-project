@@ -1,0 +1,25 @@
+.add-photo {
+  grid-area: adding;
+  align-self: start;
+  justify-self: center;
+  margin-top: 76px;
+  padding: 0;
+  background-color: black;
+  border: 2px solid white;
+  width: 150px;
+  height: 50px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.add-photo:hover {
+  opacity: .6;
+}
+
+@media screen and (max-width: 330px) {
+  .add-photo {
+    margin-top: 32px;
+    width: 282px;
+  }
+}
