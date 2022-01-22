@@ -2,7 +2,6 @@
   grid-area: adding;
   align-self: start;
   justify-self: center;
-  margin-top: 76px;
   padding: 0;
   background-color: black;
   border: 2px solid white;
@@ -19,7 +18,6 @@
 
 @media screen and (max-width: 330px) {
   .add-photo {
-    margin-top: 32px;
     width: 282px;
   }
 }

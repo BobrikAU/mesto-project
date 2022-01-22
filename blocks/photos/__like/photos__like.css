@@ -1,0 +1,13 @@
+.photos__like {
+  float: right;
+  width: 22px;
+  height: 19px;
+  margin: 26px 20px 0 0;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.photos__like:hover {
+  opacity: .5;
+}
+

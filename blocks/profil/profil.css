@@ -2,7 +2,7 @@
   grid-area: profil;
   display: grid;
   grid-template-columns: 150px minmax(100px, max-content) 82px;
-  grid-template-rows: 210px;
+  grid-template-rows: 212px;
 }
 
 @media screen and (max-width: 330px) {
