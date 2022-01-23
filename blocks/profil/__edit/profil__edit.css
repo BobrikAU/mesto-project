@@ -14,7 +14,7 @@
   opacity: .6;
 }
 
-@media screen and (max-width: 330px) {
+@media screen and (max-width: 700px) {
   .profil__edit {
     grid-area: edit;
     width: 16px;

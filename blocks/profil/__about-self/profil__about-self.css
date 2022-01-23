@@ -9,7 +9,7 @@
   text-overflow: ellipsis;
 }
 
-@media screen and (max-width: 330px) {
+@media screen and (max-width: 700px) {
   .profil__about-self {
     font-size: 14px;
     text-align: center;
