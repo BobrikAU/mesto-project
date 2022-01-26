@@ -3,10 +3,18 @@
   width: 100%;
   max-width: 880px;
   padding: 45px 0 36px;
+  box-sizing: border-box;
 }
 
-@media screen and (max-width: 330px) {
+@media screen and (max-width: 910px) {
   .header {
-    padding: 28px 0 26px;
+    padding-left: 27px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .header {
+    padding-top: 28px;
+    padding-bottom: 26px;
   }
 }

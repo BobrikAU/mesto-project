@@ -1,11 +1,11 @@
-.add-photo__plus {
+.photos-add__icon-plus {
   width: 22px;
   margin-top: 12px;
   margin-bottom: 12px;
 }
 
-@media screen and (max-width: 330px) {
-  .add-photo__plus {
+@media screen and (max-width: 700px) {
+  .photos-add__icon-plus {
     width: 16px;
     margin-top: 15px;
     margin-bottom: 15px;

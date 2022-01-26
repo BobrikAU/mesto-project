@@ -1,0 +1,13 @@
+.popup__set {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 36px 37px;
+  border: 0 none;
+}
+
+@media screen and (max-width: 700px) {
+  .popup__set {
+    padding: 0 22px 25px;
+  }
+}

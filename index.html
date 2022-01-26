@@ -14,70 +14,85 @@
 <body class="page">
 
   <header class="header">
-    <img src="./images/logo.svg" alt="логотип Mesto" class="header__logo">
+    <img src="./images/logo.svg" alt="логотип Mesto" class="logo">
   </header>
 
   <main class="main">
 
-    <div class="profil">
+    <section class="profil">
       <img src="./images/avatar.jpg" alt="фотография Жак-Ив Кусто" class="profil__avatar">
       <div class="profil__information">
-        <h1 class="profil__name">Жак-Ив Кусто</h1>
-        <p class="profil__about-self">Исследователь океана</p>
+        <h1 class="profil__title">Жак-Ив Кусто</h1>
+        <p class="profil__subtitle">Исследователь океана</p>
       </div>
-      <button class="profil__edit"><img src="./images/pen.svg" alt="картинка ручки" class="profil__pen"></button>
-    </div>
+      <button class="button button_place_profil profil__button"><img src="./images/icon-pen.svg" alt="иконка редактирования в виде ручки" class="profil__icon-pen"></button>
+      <div class="popup popup_opened">
+        <button class="button button_place_popup popup__button"><img src="./images/icon-close.svg" alt="иконка закрытия окна редактирования профиля" class="popup__icon"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form action="URL" method="post" class="popup__form">
+          <fieldset class="popup__set">
+            <input type="text" name="name" placeholder="Жак-Ив Кусто" class="popup__input-text">
+            <input type="text" name="about-self" placeholder="Исследователь океана" class="popup__input-text">
+            <input type="submit" value="Сохранить" class="popap__submit">
+          </fieldset>
+        </form>
+      </div>
+    </section>
 
-    <button class="add-photo main__margin"><img src="./images/plus.svg" alt="плюс" class="add-photo__plus"></button>
+    <section class="photos-add">
+      <button class="button"><img src="./images/icon-plus.svg" alt="иконка добавления в виде плюса" class="photos-add__icon-plus"></button>
+    </section>
 
-    <ul class="photos">
-      <li class="photos__item">
-        <figure class="photos__container">
-          <img src="./images/karachaevsk.jpg" alt="фотография Сентинского храма" class="photos__photo">
-          <figcaption class="photos__caption">Карачаевск</figcaption>
-          <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
-        </figure>
-      </li>
-      <li class="photos__item">
-        <figure class="photos__container">
-          <img src="./images/elbrus.jpg" alt="фотография заката на фоне Эльбруса" class="photos__photo">
-          <figcaption class="photos__caption">Гора Эльбрус</figcaption>
-          <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
-        </figure>
-      </li>
-      <li class="photos__item">
-        <figure class="photos__container">
-          <img src="./images/dombai.jpg" alt="фотография горы в Домбае" class="photos__photo">
-          <figcaption class="photos__caption">Домбай</figcaption>
-          <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
-        </figure>
-      </li>
-      <li class="photos__item">
-        <figure class="photos__container">
-          <img src="./images/elbrus.jpg" alt="фотография заката на фоне Эльбруса" class="photos__photo">
-          <figcaption class="photos__caption">Гора Эльбрус</figcaption>
-          <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
-        </figure>
-      </li>
-      <li class="photos__item">
-        <figure class="photos__container">
-          <img src="./images/dombai.jpg" alt="фотография горы в Домбае" class="photos__photo">
-          <figcaption class="photos__caption">Домбай</figcaption>
-          <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
-        </figure>
-      </li>
-      <li class="photos__item">
-        <figure class="photos__container">
-          <img src="./images/karachaevsk.jpg" alt="фотография Сентинского храма" class="photos__photo">
-          <figcaption class="photos__caption">Карачаево-Черкесская Республика</figcaption>
-          <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
-        </figure>
-      </li>
-
+    <section class="photos">
+      <ul class="photos__list">
+        <li class="photos__item">
+          <figure class="photos__container">
+            <img src="./images/karachaevsk.jpg" alt="фотография Сентинского храма" class="photos__photo">
+            <figcaption class="photos__caption">Карачаевск</figcaption>
+            <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
+          </figure>
+        </li>
+        <li class="photos__item">
+          <figure class="photos__container">
+            <img src="./images/elbrus.jpg" alt="фотография заката на фоне Эльбруса" class="photos__photo">
+            <figcaption class="photos__caption">Гора Эльбрус</figcaption>
+            <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
+          </figure>
+        </li>
+        <li class="photos__item">
+          <figure class="photos__container">
+            <img src="./images/dombai.jpg" alt="фотография горы в Домбае" class="photos__photo">
+            <figcaption class="photos__caption">Домбай</figcaption>
+            <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
+          </figure>
+        </li>
+        <li class="photos__item">
+          <figure class="photos__container">
+            <img src="./images/elbrus.jpg" alt="фотография заката на фоне Эльбруса" class="photos__photo">
+            <figcaption class="photos__caption">Гора Эльбрус</figcaption>
+            <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
+          </figure>
+        </li>
+        <li class="photos__item">
+          <figure class="photos__container">
+            <img src="./images/dombai.jpg" alt="фотография горы в Домбае" class="photos__photo">
+            <figcaption class="photos__caption">Домбай</figcaption>
+            <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
+          </figure>
+        </li>
+        <li class="photos__item">
+          <figure class="photos__container">
+            <img src="./images/karachaevsk.jpg" alt="фотография Сентинского храма" class="photos__photo">
+            <figcaption class="photos__caption">Карачаево-Черкесская Республика</figcaption>
+            <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
+          </figure>
+        </li>
+      </ul>
+    </section>
   </main>
 
   <footer class="footer">
-    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    <p class="footer__text">&copy; 2020 Mesto Russia</p>
   </footer>
 </body>
 </html>

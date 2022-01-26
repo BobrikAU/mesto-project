@@ -1,0 +1,12 @@
+.profil__button {
+  margin: 78px 0 0 19px;
+}
+
+@media screen and (max-width: 700px) {
+  .profil__button {
+    grid-area: edit;
+    margin-top: 35px;
+    margin-left: 10px;
+    align-self: start;
+  }
+}
