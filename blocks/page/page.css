@@ -7,4 +7,6 @@
   align-items: center;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

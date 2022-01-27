@@ -5,20 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto Russia</title>
-    <meta name="description" content=""> <!--дополнить описание-->
-    <meta name="keywords" content=""> <!--дополнить описание-->
+    <meta name="description" content="Интерактивная страница, на которой можно добавлять фотографии, удалять их и ставить лайки">
+    <meta name="keywords" content="Mesto, Россия, фотографии">
     <meta name="author" content="дизайн - Яндекс.Практикум">
     <meta name="author" content="верстка - Бобрик Александр">
     <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
 
+  <!--шапка сайта-->
   <header class="header">
     <img src="./images/logo.svg" alt="логотип Mesto" class="logo">
   </header>
 
+  <!--основной контент страницы-->
   <main class="main">
 
+    <!--профиль пользователя-->
     <section class="profil">
       <img src="./images/avatar.jpg" alt="фотография Жак-Ив Кусто" class="profil__avatar">
       <div class="profil__information">
@@ -26,7 +29,7 @@
         <p class="profil__subtitle">Исследователь океана</p>
       </div>
       <button class="button button_place_profil profil__button"><img src="./images/icon-pen.svg" alt="иконка редактирования в виде ручки" class="profil__icon-pen"></button>
-      <div class="popup popup_opened">
+      <div class="popup">
         <button class="button button_place_popup popup__button"><img src="./images/icon-close.svg" alt="иконка закрытия окна редактирования профиля" class="popup__icon"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form action="URL" method="post" class="popup__form">
@@ -39,58 +42,61 @@
       </div>
     </section>
 
-    <section class="photos-add">
+    <!--добавление фотографий-->
+    <section class="photos-add" aria-label="Добавление фотографий">
       <button class="button"><img src="./images/icon-plus.svg" alt="иконка добавления в виде плюса" class="photos-add__icon-plus"></button>
     </section>
 
-    <section class="photos">
+    <!--галерея фотографий-->
+    <section class="photos" aria-label="Фотографии">
       <ul class="photos__list">
         <li class="photos__item">
           <figure class="photos__container">
             <img src="./images/karachaevsk.jpg" alt="фотография Сентинского храма" class="photos__photo">
+            <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
             <figcaption class="photos__caption">Карачаевск</figcaption>
-            <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
           </figure>
         </li>
         <li class="photos__item">
           <figure class="photos__container">
             <img src="./images/elbrus.jpg" alt="фотография заката на фоне Эльбруса" class="photos__photo">
-            <figcaption class="photos__caption">Гора Эльбрус</figcaption>
             <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
+            <figcaption class="photos__caption">Гора Эльбрус</figcaption>
           </figure>
         </li>
         <li class="photos__item">
           <figure class="photos__container">
             <img src="./images/dombai.jpg" alt="фотография горы в Домбае" class="photos__photo">
-            <figcaption class="photos__caption">Домбай</figcaption>
             <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
+            <figcaption class="photos__caption">Домбай</figcaption>
           </figure>
         </li>
         <li class="photos__item">
           <figure class="photos__container">
             <img src="./images/elbrus.jpg" alt="фотография заката на фоне Эльбруса" class="photos__photo">
-            <figcaption class="photos__caption">Гора Эльбрус</figcaption>
             <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
+            <figcaption class="photos__caption">Гора Эльбрус</figcaption>
           </figure>
         </li>
         <li class="photos__item">
           <figure class="photos__container">
             <img src="./images/dombai.jpg" alt="фотография горы в Домбае" class="photos__photo">
-            <figcaption class="photos__caption">Домбай</figcaption>
             <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
+            <figcaption class="photos__caption">Домбай</figcaption>
           </figure>
         </li>
         <li class="photos__item">
           <figure class="photos__container">
             <img src="./images/karachaevsk.jpg" alt="фотография Сентинского храма" class="photos__photo">
-            <figcaption class="photos__caption">Карачаево-Черкесская Республика</figcaption>
             <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
+            <figcaption class="photos__caption">Карачаево-Черкесская Республика</figcaption>
           </figure>
         </li>
       </ul>
     </section>
   </main>
 
+  <!--подвал сайта-->
   <footer class="footer">
     <p class="footer__text">&copy; 2020 Mesto Russia</p>
   </footer>
