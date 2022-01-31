@@ -28,7 +28,7 @@
         <h1 class="profil__title">Жак-Ив Кусто</h1>
         <p class="profil__subtitle">Исследователь океана</p>
       </div>
-      <button class="button button_place_profil profil__button"><img src="./images/icon-pen.svg" alt="иконка редактирования в виде ручки" class="profil__icon-pen"></button>
+      <button type="button" class="button button_place_profil profil__button"><img src="./images/icon-pen.svg" alt="иконка редактирования в виде ручки" class="profil__icon-pen"></button>
       <div class="popup">
         <button class="button button_place_popup popup__button"><img src="./images/icon-close.svg" alt="иконка закрытия окна редактирования профиля" class="popup__icon"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
@@ -44,7 +44,7 @@
 
     <!--добавление фотографий-->
     <section class="photos-add" aria-label="Добавление фотографий">
-      <button class="button"><img src="./images/icon-plus.svg" alt="иконка добавления в виде плюса" class="photos-add__icon-plus"></button>
+      <button type="button" class="button"><img src="./images/icon-plus.svg" alt="иконка добавления в виде плюса" class="photos-add__icon-plus"></button>
     </section>
 
     <!--галерея фотографий-->
@@ -53,7 +53,7 @@
         <li class="photos__item">
           <figure class="photos__container">
             <img src="./images/karachaevsk.jpg" alt="фотография Сентинского храма" class="photos__photo">
-            <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
+            <button type="button" class="button button_place_photos photos__button"><img src="./images/like-no.svg" alt="лайк выключен" class="photos__like-button__"></button>
             <figcaption class="photos__caption">Карачаевск</figcaption>
           </figure>
         </li>
