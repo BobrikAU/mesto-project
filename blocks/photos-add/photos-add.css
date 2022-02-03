@@ -1,9 +1,0 @@
-.photos-add {
-  padding-top: 76px;
-}
-
-@media screen and (max-width: 700px) {
-  .photos-add {
-    padding-top: 32px;
-  }
-}

@@ -1,0 +1,5 @@
+/*временный способ подключения активных лайков*/
+
+.button__icon-like_aktive {
+  background-image: url(../../../../images/like-aktiv.svg);
+}

@@ -1,0 +1,18 @@
+.profile {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 150px minmax(100px, max-content) 82px 1fr;
+  grid-template-rows: 212px;
+}
+
+@media screen and (max-width: 700px) {
+  .profile {
+    width: 100%;
+    grid-template-columns: minmax(28px, 1fr) minmax(50px, max-content) minmax(28px, 1fr);
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas: "avatar avatar avatar"
+                         ". information edit"
+                         "add-photos add-photos add-photos";
+    justify-content: center;
+  }
+}

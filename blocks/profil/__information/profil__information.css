@@ -1,8 +1,0 @@
-.profil__information {
-}
-
-@media screen and (max-width: 700px) {
-  .profil__information {
-    grid-area: information;
-  }
-}

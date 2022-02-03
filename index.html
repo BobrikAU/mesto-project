@@ -22,75 +22,48 @@
   <main class="main">
 
     <!--профиль пользователя-->
-    <section class="profil">
-      <img src="./images/avatar.jpg" alt="фотография Жак-Ив Кусто" class="profil__avatar">
-      <div class="profil__information">
-        <h1 class="profil__title">Жак-Ив Кусто</h1>
-        <p class="profil__subtitle">Исследователь океана</p>
+    <section class="profile">
+      <img src="./images/avatar.jpg" alt="фотография Жак-Ив Кусто" class="profile__avatar">
+      <div class="profile__information">
+        <h1 class="profile__title">Жак-Ив Кусто</h1>
+        <p class="profile__subtitle">Исследователь океана</p>
       </div>
-      <button type="button" class="button button_place_profil profil__button"><img src="./images/icon-pen.svg" alt="иконка редактирования в виде ручки" class="profil__icon-pen"></button>
-      <div class="popup">
-        <button class="button button_place_popup popup__button"><img src="./images/icon-close.svg" alt="иконка закрытия окна редактирования профиля" class="popup__icon"></button>
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form action="URL" method="post" class="popup__form">
-          <fieldset class="popup__set">
-            <input type="text" name="name" placeholder="Жак-Ив Кусто" class="popup__input-text">
-            <input type="text" name="about-self" placeholder="Исследователь океана" class="popup__input-text">
-            <input type="submit" value="Сохранить" class="popap__submit">
-          </fieldset>
-        </form>
-      </div>
-    </section>
-
-    <!--добавление фотографий-->
-    <section class="photos-add" aria-label="Добавление фотографий">
-      <button type="button" class="button"><img src="./images/icon-plus.svg" alt="иконка добавления в виде плюса" class="photos-add__icon-plus"></button>
+      <button type="button" class="button button_function_edit-profile profile__edit-button"><img src="./images/icon-pen.svg" alt="иконка редактирования в виде ручки" class="button__icon-pen"></button>
+      <button type="button" class="button profile__add-button"><img src="./images/icon-plus.svg" alt="иконка добавления в виде плюса" class="button__icon-plus"></button>
     </section>
 
     <!--галерея фотографий-->
     <section class="photos" aria-label="Фотографии">
       <ul class="photos__list">
         <li class="photos__item">
-          <figure class="photos__container">
             <img src="./images/karachaevsk.jpg" alt="фотография Сентинского храма" class="photos__photo">
-            <button type="button" class="button button_place_photos photos__button"><img src="./images/like-no.svg" alt="лайк выключен" class="photos__like-button__"></button>
-            <figcaption class="photos__caption">Карачаевск</figcaption>
-          </figure>
+            <h2 class="photos__caption">Карачаевск</h2>
+            <button type="button" class="button button_function_like photos__like-button"><img src="./images/like-no.svg" alt="лайк выключен" class="button__icon-like"></button>
         </li>
         <li class="photos__item">
-          <figure class="photos__container">
             <img src="./images/elbrus.jpg" alt="фотография заката на фоне Эльбруса" class="photos__photo">
-            <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
-            <figcaption class="photos__caption">Гора Эльбрус</figcaption>
-          </figure>
+            <h2 class="photos__caption">Гора Эльбрус</h2>
+            <button type="button" class="button button_function_like photos__like-button"><img src="./images/like-no.svg" alt="лайк выключен" class="button__icon-like"></button>
         </li>
         <li class="photos__item">
-          <figure class="photos__container">
             <img src="./images/dombai.jpg" alt="фотография горы в Домбае" class="photos__photo">
-            <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
-            <figcaption class="photos__caption">Домбай</figcaption>
-          </figure>
+            <h2 class="photos__caption">Домбай</h2>
+            <button type="button" class="button button_function_like photos__like-button"><img src="./images/like-no.svg" alt="лайк выключен" class="button__icon-like"></button>
         </li>
         <li class="photos__item">
-          <figure class="photos__container">
             <img src="./images/elbrus.jpg" alt="фотография заката на фоне Эльбруса" class="photos__photo">
-            <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
-            <figcaption class="photos__caption">Гора Эльбрус</figcaption>
-          </figure>
+            <h2 class="photos__caption">Гора Эльбрус</h2>
+            <button type="button" class="button button_function_like photos__like-button"><img src="./images/like-no.svg" alt="лайк выключен" class="button__icon-like"></button>
         </li>
         <li class="photos__item">
-          <figure class="photos__container">
             <img src="./images/dombai.jpg" alt="фотография горы в Домбае" class="photos__photo">
-            <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
-            <figcaption class="photos__caption">Домбай</figcaption>
-          </figure>
+            <h2 class="photos__caption">Домбай</h2>
+            <button type="button" class="button button_function_like photos__like-button"><img src="./images/like-no.svg" alt="лайк выключен" class="button__icon-like"></button>
         </li>
         <li class="photos__item">
-          <figure class="photos__container">
             <img src="./images/karachaevsk.jpg" alt="фотография Сентинского храма" class="photos__photo">
-            <img src="./images/like-no.svg" alt="лайк выключен" class="photos__like">
-            <figcaption class="photos__caption">Карачаево-Черкесская Республика</figcaption>
-          </figure>
+            <h2 class="photos__caption">Карачаево-Черкесская Республика</h2>
+            <button type="button" class="button button_function_like photos__like-button"><img src="./images/like-no.svg" alt="лайк выключен" class="button__icon-like"></button>
         </li>
       </ul>
     </section>
@@ -100,5 +73,20 @@
   <footer class="footer">
     <p class="footer__text">&copy; 2020 Mesto Russia</p>
   </footer>
+
+  <!--диалоговое окно редактирования профиля-->
+  <div class="popup">
+    <div class="popup__container">
+      <button type="button" class="button button_function_close-popup popup__close-button"><img src="./images/icon-close.svg" alt="иконка закрытия окна редактирования профиля" class="button__icon-close"></button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form name="profile-information" action="URL" method="post" class="popup__form">
+        <fieldset class="popup__set">
+          <input type="text" name="name" placeholder="Имя пользователя" class="popup__input-text">
+          <input type="text" name="about-self" placeholder="О себе" class="popup__input-text">
+          <input type="submit" value="Сохранить" class="popup__submit">
+        </fieldset>
+      </form>
+    </div>
+  </div>
 </body>
 </html>

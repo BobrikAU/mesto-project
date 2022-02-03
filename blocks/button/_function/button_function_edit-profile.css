@@ -1,0 +1,13 @@
+.button_function_edit-profile {
+  width: 24px;
+  height: 24px;
+  border-width: 1px;
+  border-radius: 0;
+}
+
+@media screen and (max-width: 700px) {
+  .button_function_edit-profile {
+    width: 18px;
+    height: 18px;
+  }
+}

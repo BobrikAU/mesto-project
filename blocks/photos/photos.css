@@ -1,10 +1,3 @@
 .photos {
   width: 100%;
-  min-height: calc(100vh - 474px); /*в отсутствие фотографий футер будет внизу экрана, так красивее*/
-}
-
-@media screen and (max-width: 455px) {
-  .photos {
-    min-height: calc(100vh - 546px);
-  }
 }

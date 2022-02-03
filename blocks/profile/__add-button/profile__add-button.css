@@ -1,0 +1,12 @@
+.profile__add-button {
+  margin-top: 76px;
+  justify-self: end;
+}
+
+@media screen and (max-width: 700px) {
+  .profile__add-button {
+    grid-area: add-photos;
+    margin-top: 32px;
+    justify-self: center;
+  }
+}

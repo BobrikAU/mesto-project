@@ -1,0 +1,14 @@
+.button_function_like {
+  background-color: #fff;
+  border: none;
+  width: 22px;
+  height: 19px;
+}
+
+.button_function_like:hover {
+  opacity: .5;
+}
+
+.button_function_like:focus {
+  opacity: .5;
+}
