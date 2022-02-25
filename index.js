@@ -12,6 +12,7 @@ const formAddCard = popupAddCard.querySelector('.popup__form') // форма о�
 const closeButtons = document.querySelectorAll('.popup__close-button'); // список всех кнопок закрытия модальных окон
 const emptyCard = document.querySelector('#empty-item').content; // пустая карточка для фотографии
 const listCards = document.querySelector('.photos__list'); // список карточек с фотографиями
+const popupPhotoCard = document.querySelector('.popup_photo'); // модальное окно показа фотографий карточек
 
 // фотографии для карточек при загрузке
 const photosCards = [
@@ -41,8 +42,24 @@ const photosCards = [
   }
 ];
 
+// добавление и удаление лайка
 function likeToCard(event) {
   event.target.parentElement.classList.toggle('button__icon-like_aktive');
+}
+
+// удаление карточки по выбору пользователя
+function removeCard (event) {
+  event.target.closest('.photos__item').remove();
+}
+
+// активация модального окна для просмотра фотографии карточки
+function openPhotoInPopup(event) {
+  const photoUrl = event.target.src;
+  popupPhotoCard.querySelector('.popup__photo').src = photoUrl;
+  popupPhotoCard.querySelector('.popup__photo').alt = event.target.alt;
+  const cardTitle = event.target.parentElement.querySelector('.photos__caption').textContent;
+  popupPhotoCard.querySelector('.popup__title_photo').textContent = cardTitle;
+  closeOpenPopup(popupPhotoCard);
 }
 
 // функция дополнения карточки на страницу
@@ -52,8 +69,15 @@ function addNewCard(index) {
   card.querySelector('.photos__photo').alt = photosCards[index].name;
   card.querySelector('.photos__caption').textContent = photosCards[index].name;
   listCards.prepend(card);
+  // лайки
   const listLikes = document.querySelectorAll('.photos__like-button');
   listLikes[0].addEventListener('click', likeToCard);
+  // удаление карточек
+  const trashButton = document.querySelector('.button_function_trash');
+  trashButton.addEventListener('click', removeCard);
+  // открытие фотографий карточек в модальном окне
+  const photoInCard = document.querySelector('.photos__photo');
+  photoInCard.addEventListener('click', openPhotoInPopup);
 }
 
 // автоматическое заполнение карточками при загрузке
@@ -106,4 +130,3 @@ formEditProfile.addEventListener('submit', function (event) {
   profileSelf.textContent = popupProfileSelf.value;
   closeOpenPopup(event.target.parentElement.parentElement);
 });
-

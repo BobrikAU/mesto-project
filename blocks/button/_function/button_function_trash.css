@@ -1,0 +1,9 @@
+.button_function_trash {
+  background-color: transparent;
+  border: 0px;
+  width: 18px;
+  height: 19px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
