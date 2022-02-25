@@ -41,6 +41,10 @@ const photosCards = [
   }
 ];
 
+function likeToCard(event) {
+  event.target.parentElement.classList.toggle('button__icon-like_aktive');
+}
+
 // функция дополнения карточки на страницу
 function addNewCard(index) {
   const card = emptyCard.cloneNode(true);
@@ -48,6 +52,8 @@ function addNewCard(index) {
   card.querySelector('.photos__photo').alt = photosCards[index].name;
   card.querySelector('.photos__caption').textContent = photosCards[index].name;
   listCards.prepend(card);
+  const listLikes = document.querySelectorAll('.photos__like-button');
+  listLikes[0].addEventListener('click', likeToCard);
 }
 
 // автоматическое заполнение карточками при загрузке
