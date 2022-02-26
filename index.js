@@ -45,6 +45,7 @@ const photosCards = [
 // добавление и удаление лайка
 function likeToCard(event) {
   event.target.parentElement.classList.toggle('button__icon-like_aktive');
+  event.target.parentElement.blur();
 }
 
 // удаление карточки по выбору пользователя
@@ -87,7 +88,15 @@ for (let i = 0; i < photosCards.length; i++) {
 
 // непосредственное открытие и закрытие модального окна
 function closeOpenPopup (popup) {
-  popup.classList.toggle('popup_opened');
+  if (!popup.classList.contains('popup_opened')) {
+    popup.classList.add('popup_opened');
+  } else {
+    popup.classList.add('popup_closed');
+    setTimeout(() => {
+      popup.classList.remove('popup_closed');
+      popup.classList.remove('popup_opened');
+    }, 600);
+  }
 }
 
 // вызов окна редактирования профиля
