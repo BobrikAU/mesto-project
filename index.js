@@ -130,6 +130,8 @@ formAddCard.addEventListener('submit', function (event) {
   photosCards[index].link = popupAddCard.querySelectorAll('.popup__input-text')[1].value;
   addNewCard(index);
   closeOpenPopup(event.target.parentElement.parentElement);
+  popupAddCard.querySelectorAll('.popup__input-text')[0].value = '';
+  popupAddCard.querySelectorAll('.popup__input-text')[1].value = '';
 });
 
 // редактирование информации о пользователе в профиле
