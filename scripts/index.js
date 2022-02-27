@@ -151,5 +151,5 @@ formEditProfile.addEventListener('submit', function (event) {
   event.preventDefault();
   profileName.textContent = popupProfileName.value;
   profileSelf.textContent = popupProfileSelf.value;
-  closeOpenPopup(event.target.parentElement.parentElement);
+  closeOpenPopup(popupEditProfile);
 });
