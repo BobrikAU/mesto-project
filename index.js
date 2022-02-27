@@ -42,49 +42,6 @@ const photosCards = [
   }
 ];
 
-// добавление и удаление лайка
-function likeToCard(event) {
-  event.target.parentElement.classList.toggle('button__icon-like_aktive');
-  event.target.parentElement.blur();
-}
-
-// удаление карточки по выбору пользователя
-function removeCard (event) {
-  event.target.closest('.photos__item').remove();
-}
-
-// активация модального окна для просмотра фотографии карточки
-function openPhotoInPopup(event) {
-  const photoUrl = event.target.src;
-  popupPhotoCard.querySelector('.popup__photo').src = photoUrl;
-  popupPhotoCard.querySelector('.popup__photo').alt = event.target.alt;
-  const cardTitle = event.target.parentElement.querySelector('.photos__caption').textContent;
-  popupPhotoCard.querySelector('.popup__title_photo').textContent = cardTitle;
-  closeOpenPopup(popupPhotoCard);
-}
-
-// функция дополнения карточки на страницу
-function addNewCard(index) {
-  const card = emptyCard.cloneNode(true);
-  card.querySelector('.photos__photo').src = photosCards[index].link;
-  card.querySelector('.photos__photo').alt = photosCards[index].name;
-  card.querySelector('.photos__caption').textContent = photosCards[index].name;
-  listCards.prepend(card);
-  // лайки
-  const listLikes = document.querySelectorAll('.photos__like-button');
-  listLikes[0].addEventListener('click', likeToCard);
-  // удаление карточек
-  const trashButton = document.querySelector('.button_function_trash');
-  trashButton.addEventListener('click', removeCard);
-  // открытие фотографий карточек в модальном окне
-  const photoInCard = document.querySelector('.photos__photo');
-  photoInCard.addEventListener('click', openPhotoInPopup);
-}
-
-// автоматическое заполнение карточками при загрузке
-for (let i = 0; i < photosCards.length; i++) {
-  addNewCard(i);
-}
 
 // непосредственное открытие и закрытие модального окна
 function closeOpenPopup (popup) {
@@ -97,6 +54,53 @@ function closeOpenPopup (popup) {
       popup.classList.remove('popup_opened');
     }, 600);
   }
+}
+
+// добавление и удаление лайка
+function likeToCard(event) {
+  const activeLikeButton = event.target.parentElement;
+  activeLikeButton.classList.toggle('button__icon-like_aktive');
+  activeLikeButton.blur();
+}
+
+// удаление карточки по выбору пользователя
+function removeCard (event) {
+  const activeCard = event.target.closest('.photos__item');
+  activeCard.remove();
+}
+
+// активация модального окна для просмотра фотографии карточки
+function openPhotoInPopup(event) {
+  const photoUrl = event.target.src;
+  const photoAlt = event.target.alt;
+  const photoTitle = event.target.parentElement.querySelector('.photos__caption').textContent;
+  popupPhotoCard.querySelector('.popup__photo').src = photoUrl;
+  popupPhotoCard.querySelector('.popup__photo').alt = photoAlt;
+  popupPhotoCard.querySelector('.popup__title_photo').textContent = photoTitle;
+  closeOpenPopup(popupPhotoCard);
+}
+
+// функция дополнения карточки на страницу
+function addNewCard(index) {
+  const card = emptyCard.cloneNode(true);
+  card.querySelector('.photos__photo').src = photosCards[index].link;
+  card.querySelector('.photos__photo').alt = photosCards[index].name;
+  card.querySelector('.photos__caption').textContent = photosCards[index].name;
+  listCards.prepend(card);
+  // установка слушателя на лайк активной карточки
+  const listLikes = document.querySelectorAll('.photos__like-button');
+  listLikes[0].addEventListener('click', likeToCard);
+  // установка слушателя на удаление активной карточки
+  const trashButton = document.querySelector('.button_function_trash');
+  trashButton.addEventListener('click', removeCard);
+  // установка слушателя на открытие фотографии активной карточки в модальном окне
+  const photoInCard = document.querySelector('.photos__photo');
+  photoInCard.addEventListener('click', openPhotoInPopup);
+}
+
+// автоматическое заполнение карточками при загрузке
+for (let i = 0; i < photosCards.length; i++) {
+  addNewCard(i);
 }
 
 // вызов окна редактирования профиля
