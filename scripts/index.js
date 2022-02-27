@@ -129,8 +129,8 @@ buttonClose.forEach( function (button) {
   });
 });
 
-// добавление новой карточки пользователем
-formAddCard.addEventListener('submit', function (event) {
+// обработка запроса пользователя на добавление новой карточки
+function addCardUser(event) {
   event.preventDefault();
   const index = photosCards.length;
   photosCards.push({});
@@ -140,7 +140,10 @@ formAddCard.addEventListener('submit', function (event) {
   closeOpenPopup(event.target.parentElement.parentElement);
   popupAddCard.querySelector('.popup__title-field').value = '';
   popupAddCard.querySelector('.popup__link-field').value = '';
-});
+}
+
+// активация добавления новой карточки пользователем
+formAddCard.addEventListener('submit', addCardUser);
 
 // редактирование информации о пользователе в профиле
 formEditProfile.addEventListener('submit', function (event) {
