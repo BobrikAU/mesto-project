@@ -35,15 +35,6 @@
     <!--галерея фотографий-->
     <section class="photos" aria-label="Фотографии">
       <ul class="photos__list">
-        <!--пустая форма для карточки с фотографией-->
-        <template id="empty-item">
-          <li class="photos__item">
-              <img src=" " alt=" " class="photos__photo">
-              <h2 class="photos__caption"></h2>
-              <button type="button" class="button button_function_like photos__like-button"><img src="./images/like-no.svg" alt="лайк выключен" class="button__icon-like"></button>
-              <button type="button" class="button button_function_trash"><img src="./images/icon-trash.svg" alt="иконка мусорной корзины" class="button__icon-trash"></button>
-          </li>
-        </template>
       </ul>
     </section>
   </main>
@@ -54,30 +45,30 @@
   </footer>
 
   <!--модальное окно редактирования профиля-->
-  <div class="popup">
+  <div class="popup popup__edit-profile">
     <div class="popup__container">
       <button type="button" class="button button_function_close-popup popup__close-button"><img src="./images/icon-close.svg" alt="иконка закрытия окна редактирования профиля" class="button__icon-close"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form name="profile-information" action="URL" method="post" class="popup__form">
         <fieldset class="popup__set">
-          <input type="text" name="name" placeholder="Имя пользователя" class="popup__input-text">
-          <input type="text" name="about-self" placeholder="О себе" class="popup__input-text">
-          <input type="submit" value="Сохранить" class="popup__submit">
+          <input type="text" name="name" placeholder="Имя пользователя" class="popup__input-text popup__name-field">
+          <input type="text" name="about-self" placeholder="О себе" class="popup__input-text popup__field-yourself">
+          <button type="submit" class="popup__submit">Сохранить</button>
         </fieldset>
       </form>
     </div>
   </div>
 
   <!--модальное окно добавления карточек-->
-  <div class="popup">
+  <div class="popup popup__add-card">
     <div class="popup__container">
       <button type="button" class="button button_function_close-popup popup__close-button"><img src="./images/icon-close.svg" alt="иконка закрытия окна редактирования профиля" class="button__icon-close"></button>
       <h2 class="popup__title">Новое место</h2>
       <form name="new-card" action="URL" method="post" class="popup__form">
         <fieldset class="popup__set">
-          <input type="text" name="title" placeholder="Название" class="popup__input-text">
-          <input type="text" name="link" placeholder="Ссылка на картинку" class="popup__input-text">
-          <input type="submit" value="Создать" class="popup__submit">
+          <input type="text" name="title" placeholder="Название" class="popup__input-text popup__title-field">
+          <input type="text" name="link" placeholder="Ссылка на картинку" class="popup__input-text popup__link-field">
+          <button type="submit" class="popup__submit">Создать</button>
         </fieldset>
       </form>
     </div>
@@ -92,7 +83,17 @@
     </div>
   </div>
 
+  <!--пустая форма для карточки с фотографией-->
+  <template id="empty-item">
+    <li class="photos__item">
+        <img src=" " alt=" " class="photos__photo">
+        <h2 class="photos__caption"></h2>
+        <button type="button" class="button button_function_like photos__like-button"><img src="./images/like-no.svg" alt="лайк выключен" class="button__icon-like"></button>
+        <button type="button" class="button button_function_trash"><img src="./images/icon-trash.svg" alt="иконка мусорной корзины" class="button__icon-trash"></button>
+    </li>
+  </template>
+
   <!--подключение скрипта-->
-  <script src="index.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>

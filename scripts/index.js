@@ -1,16 +1,16 @@
 
-const editButton = document.querySelector('.profile__edit-button'); // кнопка редактирования профиля
-const popupEditProfile = document.querySelectorAll('.popup')[0]; // модальное окно редактирования профиля
+const buttonEdit = document.querySelector('.profile__edit-button'); // кнопка редактирования профиля
+const popupEditProfile = document.querySelector('.popup__edit-profile'); // модальное окно редактирования профиля
 const formEditProfile = popupEditProfile.querySelector('.popup__form'); // форма отправки данныйх для редактирования профиля пользователя
-const popupProfileName = popupEditProfile.querySelectorAll('.popup__input-text')[0]; //поле для введения имени пользователя в модальном окне редактирования профиля
-const popupProfileSelf = popupEditProfile.querySelectorAll('.popup__input-text')[1]; //поле для информации о пользователе в модальном окне редактирования профиля
+const popupProfileName = popupEditProfile.querySelector('.popup__name-field'); //поле для введения имени пользователя в модальном окне редактирования профиля
+const popupProfileSelf = popupEditProfile.querySelector('.popup__field-yourself'); //поле для информации о пользователе в модальном окне редактирования профиля
 const profileName = document.querySelector('.profile__title'); //заголовок с именем пользователя в профиле
 const profileSelf = document.querySelector('.profile__subtitle'); //подзаголовок с информацией о пользователе в профиле
-const addButton = document.querySelector('.profile__add-button'); // кнопка добавления карточек
-const popupAddCard = document.querySelectorAll('.popup')[1]; // модальное окно добавления карточек
+const buttonAdd = document.querySelector('.profile__add-button'); // кнопка добавления карточек
+const popupAddCard = document.querySelector('.popup__add-card'); // модальное окно добавления карточек
 const formAddCard = popupAddCard.querySelector('.popup__form') // форма отправки данных для новой карточки
-const closeButtons = document.querySelectorAll('.popup__close-button'); // список всех кнопок закрытия модальных окон
-const emptyCard = document.querySelector('#empty-item').content; // пустая карточка для фотографии
+const buttonClose = document.querySelectorAll('.popup__close-button'); // список всех кнопок закрытия модальных окон
+const cardEmpty = document.querySelector('#empty-item').content; // пустая карточка для фотографии
 const listCards = document.querySelector('.photos__list'); // список карточек с фотографиями
 const popupPhotoCard = document.querySelector('.popup_photo'); // модальное окно показа фотографий карточек
 
@@ -57,15 +57,15 @@ function closeOpenPopup (popup) {
 
 // добавление и удаление лайка
 function likeToCard(event) {
-  const activeLikeButton = event.target.parentElement;
-  activeLikeButton.classList.toggle('button__icon-like_aktive');
-  activeLikeButton.blur();
+  const likeButtonActive = event.target.parentElement;
+  likeButtonActive.classList.toggle('button__icon-like_aktive');
+  likeButtonActive.blur();
 }
 
 // удаление карточки по выбору пользователя
 function removeCard (event) {
-  const activeCard = event.target.closest('.photos__item');
-  activeCard.remove();
+  const cardActive = event.target.closest('.photos__item');
+  cardActive.remove();
 }
 
 // активация модального окна для просмотра фотографии карточки
@@ -81,14 +81,14 @@ function openPhotoInPopup(event) {
 
 // функция дополнения карточки на страницу
 function addNewCard(index) {
-  const card = emptyCard.cloneNode(true);
+  const card = cardEmpty.cloneNode(true);
   card.querySelector('.photos__photo').src = photosCards[index].link;
   card.querySelector('.photos__photo').alt = photosCards[index].name;
   card.querySelector('.photos__caption').textContent = photosCards[index].name;
   listCards.prepend(card);
   // установка слушателя на лайк активной карточки
-  const listLikes = document.querySelectorAll('.photos__like-button');
-  listLikes[0].addEventListener('click', likeToCard);
+  const likeButton = document.querySelector('.photos__like-button');
+  likeButton.addEventListener('click', likeToCard);
   // установка слушателя на удаление активной карточки
   const trashButton = document.querySelector('.button_function_trash');
   trashButton.addEventListener('click', removeCard);
@@ -103,7 +103,7 @@ for (let i = 0; i < photosCards.length; i++) {
 }
 
 // вызов окна редактирования профиля
-editButton.addEventListener('click', function () {
+buttonEdit.addEventListener('click', function () {
   popupProfileName.removeAttribute('placeholder');
   popupProfileName.setAttribute('value', profileName.textContent);
   popupProfileSelf.removeAttribute('placeholder');
@@ -112,15 +112,15 @@ editButton.addEventListener('click', function () {
 });
 
 // вызов окна добавления карточек
-addButton.addEventListener('click', function () {
+buttonAdd.addEventListener('click', function () {
   closeOpenPopup(popupAddCard);
 });
 
 // деактивация любого модального окна, данные не сохраняются
-closeButtons.forEach( function (button) {
+buttonClose.forEach( function (button) {
   button.addEventListener('click', function (event) {
-    const activePopup = event.target.parentElement.parentElement.parentElement;
-    closeOpenPopup(activePopup);
+    const popupActive = event.target.parentElement.parentElement.parentElement;
+    closeOpenPopup(popupActive);
   });
 });
 
@@ -129,12 +129,12 @@ formAddCard.addEventListener('submit', function (event) {
   event.preventDefault();
   const index = photosCards.length;
   photosCards.push({});
-  photosCards[index].name = popupAddCard.querySelectorAll('.popup__input-text')[0].value;
-  photosCards[index].link = popupAddCard.querySelectorAll('.popup__input-text')[1].value;
+  photosCards[index].name = popupAddCard.querySelector('.popup__title-field').value;
+  photosCards[index].link = popupAddCard.querySelector('.popup__link-field').value;
   addNewCard(index);
   closeOpenPopup(event.target.parentElement.parentElement);
-  popupAddCard.querySelectorAll('.popup__input-text')[0].value = '';
-  popupAddCard.querySelectorAll('.popup__input-text')[1].value = '';
+  popupAddCard.querySelector('.popup__title-field').value = '';
+  popupAddCard.querySelector('.popup__link-field').value = '';
 });
 
 // редактирование информации о пользователе в профиле
