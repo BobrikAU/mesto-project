@@ -59,7 +59,6 @@ function closeOpenPopup (popup) {
 function likeToCard(event) {
   const likeButtonActive = event.target.parentElement;
   likeButtonActive.classList.toggle('button__icon-like_aktive');
-  likeButtonActive.blur();
 }
 
 // удаление карточки по выбору пользователя
@@ -79,22 +78,28 @@ function openPhotoInPopup(event) {
   closeOpenPopup(popupPhotoCard);
 }
 
-// функция дополнения карточки на страницу
-function addNewCard(index) {
+// функция создания новой карточки
+function createNewCard(index) {
   const card = cardEmpty.cloneNode(true);
   card.querySelector('.photos__photo').src = photosCards[index].link;
   card.querySelector('.photos__photo').alt = photosCards[index].name;
   card.querySelector('.photos__caption').textContent = photosCards[index].name;
-  listCards.prepend(card);
   // установка слушателя на лайк активной карточки
-  const likeButton = document.querySelector('.photos__like-button');
+  const likeButton = card.querySelector('.photos__like-button');
   likeButton.addEventListener('click', likeToCard);
   // установка слушателя на удаление активной карточки
-  const trashButton = document.querySelector('.button_function_trash');
+  const trashButton = card.querySelector('.button_function_trash');
   trashButton.addEventListener('click', removeCard);
   // установка слушателя на открытие фотографии активной карточки в модальном окне
-  const photoInCard = document.querySelector('.photos__photo');
+  const photoInCard = card.querySelector('.photos__photo');
   photoInCard.addEventListener('click', openPhotoInPopup);
+  return card;
+}
+
+// функция дополнения карточки на страницу
+function addNewCard(index) {
+  const card = createNewCard(index);
+  listCards.prepend(card);
 }
 
 // автоматическое заполнение карточками при загрузке
