@@ -44,15 +44,7 @@ const photosCards = [
 
 // непосредственное открытие и закрытие модального окна
 function closeOpenPopup (popup) {
-  if (!popup.classList.contains('popup_opened')) {
-    popup.classList.add('popup_opened');
-  } else {
-    popup.classList.add('popup_closed');
-    setTimeout(() => {
-      popup.classList.remove('popup_closed');
-      popup.classList.remove('popup_opened');
-    }, 600);
-  }
+  popup.classList.toggle('popup_opened');
 }
 
 // добавление и удаление лайка
