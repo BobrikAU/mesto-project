@@ -107,14 +107,15 @@ for (let i = 0; i < photosCards.length; i++) {
   addNewCard(i);
 }
 
-// вызов окна редактирования профиля
-buttonEdit.addEventListener('click', function () {
-  popupProfileName.removeAttribute('placeholder');
-  popupProfileName.setAttribute('value', profileName.textContent);
-  popupProfileSelf.removeAttribute('placeholder');
-  popupProfileSelf.setAttribute('value', profileSelf.textContent);
+// вывод окна редактирования профиля на экран
+function openPopupEditProfile() {
+  popupProfileName.value = profileName.textContent;
+  popupProfileSelf.value = profileSelf.textContent;
   closeOpenPopup(popupEditProfile);
-});
+}
+
+// вызов окна редактирования профиля
+buttonEdit.addEventListener('click', openPopupEditProfile);
 
 // вызов окна добавления карточек
 buttonAdd.addEventListener('click', function () {
@@ -124,7 +125,7 @@ buttonAdd.addEventListener('click', function () {
 // деактивация любого модального окна, данные не сохраняются
 buttonClose.forEach( function (button) {
   button.addEventListener('click', function (event) {
-    const popupActive = event.target.parentElement.parentElement.parentElement;
+    const popupActive = event.target.closest('.popup');
     closeOpenPopup(popupActive);
   });
 });
