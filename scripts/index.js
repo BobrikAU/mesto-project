@@ -57,7 +57,7 @@ function closeOpenPopup (popup) {
 
 // добавление и удаление лайка
 function likeToCard(event) {
-  const likeButtonActive = event.target.parentElement;
+  const likeButtonActive = event.target.closest('.button_function_like');
   likeButtonActive.classList.toggle('button__icon-like_aktive');
 }
 
@@ -71,7 +71,7 @@ function removeCard (event) {
 function openPhotoInPopup(event) {
   const photoUrl = event.target.src;
   const photoAlt = event.target.alt;
-  const photoTitle = event.target.parentElement.querySelector('.photos__caption').textContent;
+  const photoTitle = event.target.closest('.photos__item').querySelector('.photos__caption').textContent;
   popupPhotoCard.querySelector('.popup__photo').src = photoUrl;
   popupPhotoCard.querySelector('.popup__photo').alt = photoAlt;
   popupPhotoCard.querySelector('.popup__title_photo').textContent = photoTitle;
@@ -79,11 +79,11 @@ function openPhotoInPopup(event) {
 }
 
 // функция создания новой карточки
-function createNewCard(index) {
+function createNewCard(link, name) {
   const card = cardEmpty.cloneNode(true);
-  card.querySelector('.photos__photo').src = photosCards[index].link;
-  card.querySelector('.photos__photo').alt = photosCards[index].name;
-  card.querySelector('.photos__caption').textContent = photosCards[index].name;
+  card.querySelector('.photos__photo').src = link;
+  card.querySelector('.photos__photo').alt = name;
+  card.querySelector('.photos__caption').textContent = name;
   // установка слушателя на лайк активной карточки
   const likeButton = card.querySelector('.photos__like-button');
   likeButton.addEventListener('click', likeToCard);
@@ -97,14 +97,16 @@ function createNewCard(index) {
 }
 
 // функция дополнения карточки на страницу
-function addNewCard(index) {
-  const card = createNewCard(index);
+function addNewCard(link, name) {
+  const card = createNewCard(link, name);
   listCards.prepend(card);
 }
 
 // автоматическое заполнение карточками при загрузке
 for (let i = 0; i < photosCards.length; i++) {
-  addNewCard(i);
+  const link = photosCards[i].link;
+  const name = photosCards[i].name;
+  addNewCard(link, name);
 }
 
 // вывод окна редактирования профиля на экран
@@ -133,12 +135,10 @@ buttonClose.forEach( function (button) {
 // обработка запроса пользователя на добавление новой карточки
 function addCardUser(event) {
   event.preventDefault();
-  const index = photosCards.length;
-  photosCards.push({});
-  photosCards[index].name = popupAddCard.querySelector('.popup__title-field').value;
-  photosCards[index].link = popupAddCard.querySelector('.popup__link-field').value;
-  addNewCard(index);
-  closeOpenPopup(event.target.parentElement.parentElement);
+  const name = popupAddCard.querySelector('.popup__title-field').value;
+  const link = popupAddCard.querySelector('.popup__link-field').value;
+  addNewCard(link, name);
+  closeOpenPopup(popupAddCard);
   popupAddCard.querySelector('.popup__title-field').value = '';
   popupAddCard.querySelector('.popup__link-field').value = '';
 }
