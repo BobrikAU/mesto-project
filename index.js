@@ -17,31 +17,30 @@ const popupPhotoCard = document.querySelector('.popup_photo'); // модальн
 // фотографии для карточек при загрузке
 const photosCards = [
   {
-    name : 'Летающий хищник',
-    link : 'https://i.postimg.cc/4x0RGsq8/sammy-wong-96qgwu-Zu-PJs-unsplash.jpg',
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
   },
   {
-    name : 'Птица',
-    link : 'https://i.postimg.cc/pL09fh7s/cody-west-fx-OE7y8-Hm-Q8-unsplash-1.jpg',
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
   },
   {
-    name : 'Красота волн',
-    link : 'https://i.postimg.cc/TYdYt2nF/bernd-dittrich-db-51-OUU-m8-unsplash-1.jpg',
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
   },
   {
-    name : 'Могучий кит',
-    link : 'https://i.postimg.cc/VvY1Z40n/max-lissenden-sn-YLMKph-Cf4-unsplash-1.jpg',
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
   },
   {
-    name : 'Энергия природы',
-    link : 'https://i.postimg.cc/mrQvxCsw/navi-jtyjc-Qj6-Ml-A-unsplash-1.jpg',
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
   },
   {
-    name : 'Рысь',
-    link : 'https://i.postimg.cc/xTcBfWQq/mario-esposito-9-E2-Aztou-Xe-M-unsplash-1.jpg',
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
 
 // непосредственное открытие и закрытие модального окна
 function closeOpenPopup (popup) {
