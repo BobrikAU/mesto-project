@@ -9,7 +9,7 @@ const profileSelf = document.querySelector('.profile__subtitle'); //подзаг
 const buttonAdd = document.querySelector('.profile__add-button'); // кнопка добавления карточек
 const popupAddCard = document.querySelector('.popup__add-card'); // модальное окно добавления карточек
 const formAddCard = popupAddCard.querySelector('.popup__form') // форма отправки данных для новой карточки
-const buttonClose = document.querySelectorAll('.popup__close-button'); // список всех кнопок закрытия модальных окон
+const buttonsClose = document.querySelectorAll('.popup__close-button'); // список всех кнопок закрытия модальных окон
 const cardEmpty = document.querySelector('#empty-item').content; // пустая карточка для фотографии
 const listCards = document.querySelector('.photos__list'); // список карточек с фотографиями
 const popupPhotoCard = document.querySelector('.popup_photo'); // модальное окно показа фотографий карточек
@@ -49,13 +49,13 @@ function closeOpenPopup (popup) {
 
 // добавление и удаление лайка
 function likeToCard(event) {
-  const likeButtonActive = event.target.closest('.button_function_like');
+  const likeButtonActive = event.currentTarget;
   likeButtonActive.classList.toggle('button__icon-like_aktive');
 }
 
 // удаление карточки по выбору пользователя
 function removeCard (event) {
-  const cardActive = event.target.closest('.photos__item');
+  const cardActive = event.currentTarget.closest('.photos__item');
   cardActive.remove();
 }
 
@@ -117,7 +117,7 @@ buttonAdd.addEventListener('click', function () {
 });
 
 // деактивация любого модального окна, данные не сохраняются
-buttonClose.forEach( function (button) {
+buttonsClose.forEach( function (button) {
   button.addEventListener('click', function (event) {
     const popupActive = event.target.closest('.popup');
     closeOpenPopup(popupActive);
