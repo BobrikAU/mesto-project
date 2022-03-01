@@ -42,9 +42,14 @@ const photosCards = [
   }
 ];
 
-// непосредственное открытие и закрытие модального окна
-function closeOpenPopup (popup) {
-  popup.classList.toggle('popup_opened');
+// непосредственное открытие модального окна
+function openPopup (popup) {
+  popup.classList.add('popup_opened');
+}
+
+// непосредственное закрытие модального окна
+function closePopup (popup) {
+  popup.classList.remove('popup_opened');
 }
 
 // добавление и удаление лайка
@@ -67,7 +72,7 @@ function openPhotoInPopup(event) {
   popupPhotoCard.querySelector('.popup__photo').src = photoUrl;
   popupPhotoCard.querySelector('.popup__photo').alt = photoAlt;
   popupPhotoCard.querySelector('.popup__title_photo').textContent = photoTitle;
-  closeOpenPopup(popupPhotoCard);
+  openPopup(popupPhotoCard);
 }
 
 // функция создания новой карточки
@@ -105,7 +110,7 @@ for (let i = 0; i < photosCards.length; i++) {
 function openPopupEditProfile() {
   popupProfileName.value = profileName.textContent;
   popupProfileSelf.value = profileSelf.textContent;
-  closeOpenPopup(popupEditProfile);
+  openPopup(popupEditProfile);
 }
 
 // вызов окна редактирования профиля
@@ -113,26 +118,23 @@ buttonEdit.addEventListener('click', openPopupEditProfile);
 
 // вызов окна добавления карточек
 buttonAdd.addEventListener('click', function () {
-  closeOpenPopup(popupAddCard);
+  openPopup(popupAddCard);
 });
 
 // деактивация любого модального окна, данные не сохраняются
 buttonsClose.forEach( function (button) {
   button.addEventListener('click', function (event) {
-    const popupActive = event.target.closest('.popup');
-    closeOpenPopup(popupActive);
+    const popupActive = document.querySelector('.popup_opened');
+    closePopup(popupActive);
   });
 });
 
 // обработка запроса пользователя на добавление новой карточки
 function addCardUser(event) {
   event.preventDefault();
-  const name = popupAddCard.querySelector('.popup__title-field').value;
-  const link = popupAddCard.querySelector('.popup__link-field').value;
-  addNewCard(link, name);
-  closeOpenPopup(popupAddCard);
-  popupAddCard.querySelector('.popup__title-field').value = '';
-  popupAddCard.querySelector('.popup__link-field').value = '';
+  addNewCard(formAddCard.link.value, formAddCard.title.value);
+  closePopup(popupAddCard);
+  formAddCard.reset();
 }
 
 // активация добавления новой карточки пользователем
@@ -143,5 +145,5 @@ formEditProfile.addEventListener('submit', function (event) {
   event.preventDefault();
   profileName.textContent = popupProfileName.value;
   profileSelf.textContent = popupProfileSelf.value;
-  closeOpenPopup(popupEditProfile);
+  closePopup(popupEditProfile);
 });
