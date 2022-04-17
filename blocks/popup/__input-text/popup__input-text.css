@@ -1,5 +1,4 @@
 .popup__input-text {
-  margin-top: 31px;
   padding: 0 0 9px;
   width: 100%;
   border-top: none;
@@ -11,6 +10,10 @@
   font-style: normal;
   font-size: 14px;
   line-height: 1.21;
+}
+
+.popup__input-text:first-child {
+  margin-top: 31px;
 }
 
 .popup__input-text:focus {

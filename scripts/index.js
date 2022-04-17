@@ -45,11 +45,38 @@ const photosCards = [
 // непосредственное открытие модального окна
 function openPopup (popup) {
   popup.classList.add('popup_opened');
+  openAdditionalWaysClosePopup(popup);
 }
 
 // непосредственное закрытие модального окна
-function closePopup (popup) {
+function closePopupClickingOverlay(event) {
+  closePopup(event.currentTarget);
+}
+
+function stopPropagation(event) {
+  event.stopPropagation();
+}
+
+function closePopupKeyESC(event) {
+  if (event.key === 'Escape') {
+    const popupActive = document.querySelector('.popup_opened');
+    closePopup (popupActive);
+  };
+}
+
+function openAdditionalWaysClosePopup(popup) {
+  document.addEventListener('keydown', closePopupKeyESC);
+  const containerPopup = popup.querySelector('.popup__container');
+  containerPopup.addEventListener('click', stopPropagation);
+  popup.addEventListener('click', closePopupClickingOverlay);
+}
+
+function closePopup(popup) {
+  const containerPopup = popup.querySelector('.popup__container');
+  containerPopup.removeEventListener('click', stopPropagation);
+  popup.removeEventListener('click', closePopupClickingOverlay);
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupKeyESC);
 }
 
 // добавление и удаление лайка
@@ -124,6 +151,7 @@ buttonAdd.addEventListener('click', function () {
 // деактивация любого модального окна, данные не сохраняются
 buttonsClose.forEach( function (button) {
   button.addEventListener('click', function (event) {
+    event.stopPropagation();
     const popupActive = document.querySelector('.popup_opened');
     closePopup(popupActive);
   });
@@ -147,3 +175,58 @@ formEditProfile.addEventListener('submit', function (event) {
   profileSelf.textContent = popupProfileSelf.value;
   closePopup(popupEditProfile);
 });
+
+//валидация форм
+const schowError = (input, spanWithErrorMessage) => {
+  input.classList.add('popup__input-text_error');
+  const errorMessageInput = input.validationMessage;
+  spanWithErrorMessage.textContent = errorMessageInput;
+}
+
+const hideError = (input, spanWithErrorMessage) => {
+  input.classList.remove('popup__input-text_error');
+  spanWithErrorMessage.textContent = '';
+}
+
+const makeButtonInactive = buttonSubmit => {
+  buttonSubmit.classList.add('popup__submit_disabled');
+  buttonSubmit.setAttribute('disabled', 'yes');
+}
+
+const checkValidityAllInputs = inputs => {
+  const result = inputs.every(function(item) {
+    return item.validity.valid
+  });
+  return result;
+}
+
+const makeButtonActive = (fieldset, buttonSubmit) => {
+  const inputs = Array.from(fieldset.querySelectorAll('.popup__input-text'));
+  if (checkValidityAllInputs(inputs)) {
+    buttonSubmit.classList.remove('popup__submit_disabled');
+    buttonSubmit.removeAttribute('disabled');
+  }
+}
+
+const reveiwInput = event => {
+  const input = event.target;
+  const fieldset = event.target.closest('.popup__set');
+  const spanWithErrorMessage = fieldset.querySelector(`.popup__input-error-${input.name}`);
+  const buttonSubmit = fieldset.querySelector('.popup__submit');
+  if (!input.validity.valid) {
+    schowError(input, spanWithErrorMessage);
+    makeButtonInactive(buttonSubmit);
+  } else {
+    hideError(input, spanWithErrorMessage);
+    makeButtonActive(fieldset, buttonSubmit);
+  }
+}
+
+function validateForms() {
+  const inputs = document.querySelectorAll('.popup__input-text');
+  inputs.forEach( input => {
+    input.addEventListener('input', reveiwInput);
+  });
+}
+
+validateForms();

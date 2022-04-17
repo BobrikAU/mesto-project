@@ -51,9 +51,11 @@
       <h2 class="popup__title">Редактировать профиль</h2>
       <form name="profile-information" action="URL" method="post" class="popup__form">
         <fieldset class="popup__set">
-          <input type="text" name="name" placeholder="Имя пользователя" class="popup__input-text popup__name-field">
-          <input type="text" name="about-self" placeholder="О себе" class="popup__input-text popup__field-yourself">
-          <button type="submit" class="popup__submit">Сохранить</button>
+          <input type="text" name="name" placeholder="Имя пользователя" required minlength="2" maxlength="40" autocomplete="off" class="popup__input-text popup__name-field">
+          <span class="popup__input-error popup__input-error-name"></span>
+          <input type="text" name="about-self" placeholder="О себе" required minlength="2" maxlength="200" autocomplete="off" class="popup__input-text popup__field-yourself">
+          <span class="popup__input-error popup__input-error-about-self"></span>
+          <button type="submit" class="popup__submit popup__submit_disabled" disabled>Сохранить</button>
         </fieldset>
       </form>
     </div>
@@ -66,9 +68,11 @@
       <h2 class="popup__title">Новое место</h2>
       <form name="new-card" action="URL" method="post" class="popup__form">
         <fieldset class="popup__set">
-          <input type="text" name="title" placeholder="Название" class="popup__input-text">
-          <input type="url" name="link" placeholder="Ссылка на картинку" class="popup__input-text">
-          <button type="submit" class="popup__submit">Создать</button>
+          <input type="text" name="title" placeholder="Название" required minlength="2" maxlength="30" autocomplete="off" class="popup__input-text">
+          <span class="popup__input-error popup__input-error-title"></span>
+          <input type="url" name="link" placeholder="Ссылка на картинку" required autocomplete="off" class="popup__input-text">
+          <span class="popup__input-error popup__input-error-link"></span>
+          <button type="submit" class="popup__submit popup__submit_disabled" disabled>Создать</button>
         </fieldset>
       </form>
     </div>
