@@ -177,56 +177,67 @@ formEditProfile.addEventListener('submit', function (event) {
 });
 
 //валидация форм
-const schowError = (input, spanWithErrorMessage) => {
-  input.classList.add('popup__input-text_error');
-  const errorMessageInput = input.validationMessage;
-  spanWithErrorMessage.textContent = errorMessageInput;
-}
+function enableValidation(selectors) {
 
-const hideError = (input, spanWithErrorMessage) => {
-  input.classList.remove('popup__input-text_error');
-  spanWithErrorMessage.textContent = '';
-}
-
-const makeButtonInactive = buttonSubmit => {
-  buttonSubmit.classList.add('popup__submit_disabled');
-  buttonSubmit.setAttribute('disabled', 'yes');
-}
-
-const checkValidityAllInputs = inputs => {
-  const result = inputs.every(function(item) {
-    return item.validity.valid
-  });
-  return result;
-}
-
-const makeButtonActive = (fieldset, buttonSubmit) => {
-  const inputs = Array.from(fieldset.querySelectorAll('.popup__input-text'));
-  if (checkValidityAllInputs(inputs)) {
-    buttonSubmit.classList.remove('popup__submit_disabled');
-    buttonSubmit.removeAttribute('disabled');
+  const schowError = (input, spanWithErrorMessage) => {
+    input.classList.add(selectors.classInputTextError);
+    const errorMessageInput = input.validationMessage;
+    spanWithErrorMessage.textContent = errorMessageInput;
   }
-}
 
-const reveiwInput = event => {
-  const input = event.target;
-  const fieldset = event.target.closest('.popup__set');
-  const spanWithErrorMessage = fieldset.querySelector(`.popup__input-error-${input.name}`);
-  const buttonSubmit = fieldset.querySelector('.popup__submit');
-  if (!input.validity.valid) {
-    schowError(input, spanWithErrorMessage);
-    makeButtonInactive(buttonSubmit);
-  } else {
-    hideError(input, spanWithErrorMessage);
-    makeButtonActive(fieldset, buttonSubmit);
+  const hideError = (input, spanWithErrorMessage) => {
+    input.classList.remove(selectors.classInputTextError);
+    spanWithErrorMessage.textContent = '';
   }
+
+  const makeButtonInactive = buttonSubmit => {
+    buttonSubmit.classList.add(selectors.classButtonSubmitDisabled);
+    buttonSubmit.setAttribute('disabled', 'yes');
+  }
+
+  const checkValidityAllInputs = inputs => {
+    const result = inputs.every(function(item) {
+      return item.validity.valid
+    });
+    return result;
+  }
+
+  const makeButtonActive = (form, buttonSubmit) => {
+    const inputs = Array.from(form.querySelectorAll(`.${selectors.classInputTextPopups}`));
+    if (checkValidityAllInputs(inputs)) {
+      buttonSubmit.classList.remove(selectors.classButtonSubmitDisabled);
+      buttonSubmit.removeAttribute('disabled');
+    }
+  }
+
+  const reveiwInput = event => {
+    const input = event.target;
+    const form = event.target.closest(`.${selectors.classFromPopup}`);
+    const spanWithErrorMessage = form.querySelector(`.popup__input-error-${input.name}`);
+    const buttonSubmit = form.querySelector(`.${selectors.classButtonSubmit}`);
+    if (!input.validity.valid) {
+      schowError(input, spanWithErrorMessage);
+      makeButtonInactive(buttonSubmit);
+    } else {
+      hideError(input, spanWithErrorMessage);
+      makeButtonActive(form, buttonSubmit);
+    }
+  }
+
+  function validateForms() {
+    const inputs = document.querySelectorAll(`.${selectors.classInputTextPopups}`);
+    inputs.forEach( input => {
+      input.addEventListener('input', reveiwInput);
+    });
+  }
+
+  validateForms();
 }
 
-function validateForms() {
-  const inputs = document.querySelectorAll('.popup__input-text');
-  inputs.forEach( input => {
-    input.addEventListener('input', reveiwInput);
-  });
-}
-
-validateForms();
+enableValidation({
+  classInputTextPopups: 'popup__input-text',
+  classButtonSubmit: 'popup__submit',
+  classFromPopup: 'popup__form',
+  classButtonSubmitDisabled: 'popup__submit_disabled',
+  classInputTextError: 'popup__input-text_error'
+});
