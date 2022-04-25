@@ -1,8 +1,11 @@
+import {makeButtonInactive} from './utils.js';
+import {selectors} from '../index.js';
+
 //открытие модальных окон
 
           // непосредственное открытие модального окна
 export function openPopup (popup) {
-  popup.classList.add('popup_opened');
+  popup.classList.add(selectors.classOpenedPopup);
   openAdditionalWaysClosePopup(popup);
 }
 
@@ -10,11 +13,11 @@ export function openPopup (popup) {
 export function openPhotoInPopup(event) {
   const photoUrl = event.target.src;
   const photoAlt = event.target.alt;
-  const photoTitle = event.target.closest('.photos__item').querySelector('.photos__caption').textContent;
-  const popupPhotoCard = document.querySelector('.popup_photo');
-  popupPhotoCard.querySelector('.popup__photo').src = photoUrl;
-  popupPhotoCard.querySelector('.popup__photo').alt = photoAlt;
-  popupPhotoCard.querySelector('.popup__title_photo').textContent = photoTitle;
+  const photoTitle = event.target.closest(`.${selectors.classCard}`).querySelector(`.${selectors.classCaptionInCard}`).textContent;
+  const popupPhotoCard = document.querySelector(`.${selectors.classPopupPhoto}`);
+  popupPhotoCard.querySelector(`.${selectors.classPhotoInPopup}`).src = photoUrl;
+  popupPhotoCard.querySelector(`.${selectors.classPhotoInPopup}`).alt = photoAlt;
+  popupPhotoCard.querySelector(`.${selectors.classTitleInPopupPhoto}`).textContent = photoTitle;
   openPopup(popupPhotoCard);
 }
 
@@ -36,9 +39,21 @@ export function openPopupEditProfile() {
           //непосредственное закрытие модального окна
 function closePopup(popup) {
   const containerPopup = popup.querySelector('.popup__container');
+  const formPopup = popup.querySelector(`.${selectors.classFromPopup}`);
+  const buttonSubmit = popup.querySelector(`.${selectors.classButtonSubmit}`);
   containerPopup.removeEventListener('click', stopPropagation);
   popup.removeEventListener('click', closePopupClickingOverlay);
-  popup.classList.remove('popup_opened');
+  if (formPopup) {
+    formPopup.reset();
+    popup.querySelectorAll('.popup__input-error').forEach( item => {
+      item.textContent = '';
+    });
+    popup.querySelectorAll(`.${selectors.classInputTextPopups}`).forEach( item => {
+      item.classList.remove(selectors.classInputTextError);
+    });
+    makeButtonInactive(buttonSubmit, selectors.classButtonSubmitDisabled);
+  }
+  popup.classList.remove(selectors.classOpenedPopup);
   document.removeEventListener('keydown', closePopupKeyESC);
 }
 
@@ -53,7 +68,7 @@ function closePopupClickingOverlay(event) {
           //активация закрытия попапа кнопкой escape
 function closePopupKeyESC(event) {
   if (event.key === 'Escape') {
-    const popupActive = document.querySelector('.popup_opened');
+    const popupActive = document.querySelector(`.${selectors.classOpenedPopup}`);
     closePopup (popupActive);
   };
 }
@@ -61,7 +76,7 @@ function closePopupKeyESC(event) {
           //активация закрытия попапа кнопкой в самом попапе
 export function closeWithButton(event) {
   event.stopPropagation();
-  const popupActive = document.querySelector('.popup_opened');
+  const popupActive = document.querySelector(`.${selectors.classOpenedPopup}`);
   closePopup(popupActive);
 }
 
@@ -91,19 +106,18 @@ function editProfile(event) {
           //установка слушателя на отправку формы с данными для редактирования профиля
 function prepareSubmitFormProfile() {
   const popupEditProfile = document.querySelector('.popup__edit-profile');
-  const formEditProfile = popupEditProfile.querySelector('.popup__form');
+  const formEditProfile = popupEditProfile.querySelector(`.${selectors.classFromPopup}`);
   formEditProfile.addEventListener('submit', editProfile);
 }
 
 // добавление новой карточки
 
           // обработка запроса пользователя на добавление новой карточки
-import {selectors} from '../index.js';
 import {addNewCard} from './card.js';
 function addCardUser(event) {
   event.preventDefault();
   const popupAddCard = document.querySelector('.popup__add-card');
-  const formAddCard = popupAddCard.querySelector('.popup__form');
+  const formAddCard = popupAddCard.querySelector(`.${selectors.classFromPopup}`);
   addNewCard(formAddCard.link.value, formAddCard.title.value, selectors);
   closePopup(popupAddCard);
   formAddCard.reset();
@@ -111,8 +125,7 @@ function addCardUser(event) {
 
           // установка слушателя на отправку формы с данными для новой карточки
 export function prepareSubmitFormNewCard() {
-  debugger
   const popupAddCard = document.querySelector('.popup__add-card');
-  const formAddCard = popupAddCard.querySelector('.popup__form');
+  const formAddCard = popupAddCard.querySelector(`.${selectors.classFromPopup}`);
   formAddCard.addEventListener('submit', addCardUser);
 }

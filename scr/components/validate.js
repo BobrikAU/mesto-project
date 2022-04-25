@@ -1,3 +1,5 @@
+import {makeButtonInactive} from './utils.js';
+
 export function enableValidation(selectors) {
 
   //показываем сообщение об ошибке в элементе span
@@ -11,12 +13,6 @@ export function enableValidation(selectors) {
   const hideError = (input, spanWithErrorMessage) => {
     input.classList.remove(selectors.classInputTextError);
     spanWithErrorMessage.textContent = '';
-  }
-
-  //дезактивация кнопки отправки формы
-  const makeButtonInactive = buttonSubmit => {
-    buttonSubmit.classList.add(selectors.classButtonSubmitDisabled);
-    buttonSubmit.setAttribute('disabled', 'yes');
   }
 
   //общая проверка на валидность всех полей ввода, отправляемых одной кнопкой
@@ -44,14 +40,14 @@ export function enableValidation(selectors) {
     const buttonSubmit = form.querySelector(`.${selectors.classButtonSubmit}`);
     if (!input.validity.valid) {
       schowError(input, spanWithErrorMessage);
-      makeButtonInactive(buttonSubmit);
+      makeButtonInactive(buttonSubmit, selectors.classButtonSubmitDisabled);
     } else {
       hideError(input, spanWithErrorMessage);
       makeButtonActive(form, buttonSubmit);
     }
   }
 
-  //установка слушателей на печание в полях ввода
+  //установка слушателей на нажатие клавиш клавиатуры в полях ввода
   function validateForms() {
     const inputs = document.querySelectorAll(`.${selectors.classInputTextPopups}`);
     inputs.forEach( input => {

@@ -1,4 +1,24 @@
 
+export const selectors = {
+  classListCards: 'photos__list',
+  classPhotoInCard: 'photos__photo',
+  classCaptionInCard: 'photos__caption',
+  classLikeInCard: 'photos__like-button',
+  classButtonTrashInCard: 'button_function_trash',
+  selectorCardEmpty: '#empty-item',
+  classLikeActive: 'button__icon-like_aktive',
+  classButtonSubmitDisabled: 'popup__submit_disabled',
+  classCard: 'photos__item',
+  classOpenedPopup: 'popup_opened',
+  classPopupPhoto: 'popup_photo',
+  classPhotoInPopup: 'popup__photo',
+  classTitleInPopupPhoto: 'popup__title_photo',
+  classInputTextPopups: 'popup__input-text',
+  classButtonSubmit: 'popup__submit',
+  classFromPopup: 'popup__form',
+  classInputTextError: 'popup__input-text_error'
+}
+
 // установка слушателей на кнопку закрытия модального окна
 import {closeWithButton} from './components/modal.js';
 (function(){
@@ -29,16 +49,6 @@ import {openPopupEditProfile} from './components/modal.js';
 
 //работа карточек
 import {cardFunctionality} from './components/card.js';
-export const selectors = {
-  classListCards: 'photos__list',
-  classPhotoInCard: 'photos__photo',
-  classCaptionInCard: 'photos__caption',
-  classLikeInCard: 'photos__like-button',
-  classButtonTrashInCard: 'button_function_trash',
-  selectorCardEmpty: '#empty-item',
-  classLikeActive: 'button__icon-like_aktive',
-  classCard: 'photos__item'
-}
 cardFunctionality([
   {
     name: 'Архыз',
