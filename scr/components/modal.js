@@ -1,12 +1,12 @@
 import {makeButtonInactive} from './utils.js';
 import {selectors} from '../index.js';
+import {addNewCard} from './card.js';
 
 //открытие модальных окон
 
           // непосредственное открытие модального окна
 export function openPopup (popup) {
   popup.classList.add(selectors.classOpenedPopup);
-  openAdditionalWaysClosePopup(popup);
 }
 
           // активация модального окна для просмотра фотографии карточки
@@ -22,7 +22,7 @@ export function openPhotoInPopup(event) {
 }
 
           // вывод окна редактирования профиля на экран
-export function openPopupEditProfile() {
+function openPopupEditProfile() {
   const profileName = document.querySelector('.profile__title');
   const profileSelf = document.querySelector('.profile__subtitle');
   const popupEditProfile = document.querySelector('.popup__edit-profile');
@@ -31,18 +31,20 @@ export function openPopupEditProfile() {
   popupProfileName.value = profileName.textContent;
   popupProfileSelf.value = profileSelf.textContent;
   openPopup(popupEditProfile);
-  prepareSubmitFormProfile();
 }
+
+          // установка слушателя на кнопку вызова окна редактирования профиля
+export function activateButtonProfile(){
+  const buttonEdit = document.querySelector('.profile__edit-button');
+  buttonEdit.addEventListener('click', openPopupEditProfile);
+};
 
 //закрытие модальных окон
 
           //непосредственное закрытие модального окна
 function closePopup(popup) {
-  const containerPopup = popup.querySelector('.popup__container');
   const formPopup = popup.querySelector(`.${selectors.classFromPopup}`);
   const buttonSubmit = popup.querySelector(`.${selectors.classButtonSubmit}`);
-  containerPopup.removeEventListener('click', stopPropagation);
-  popup.removeEventListener('click', closePopupClickingOverlay);
   if (formPopup) {
     formPopup.reset();
     popup.querySelectorAll('.popup__input-error').forEach( item => {
@@ -54,39 +56,42 @@ function closePopup(popup) {
     makeButtonInactive(buttonSubmit, selectors.classButtonSubmitDisabled);
   }
   popup.classList.remove(selectors.classOpenedPopup);
-  document.removeEventListener('keydown', closePopupKeyESC);
 }
 
           // активация закрытия модального окна нажатием мышью на оверлей
-function stopPropagation(event) {
-  event.stopPropagation();
-}
 function closePopupClickingOverlay(event) {
-  closePopup(event.currentTarget);
+  if (event.target === event.currentTarget) {
+    closePopup(event.currentTarget);
+  }
 }
 
           //активация закрытия попапа кнопкой escape
 function closePopupKeyESC(event) {
   if (event.key === 'Escape') {
     const popupActive = document.querySelector(`.${selectors.classOpenedPopup}`);
-    closePopup (popupActive);
-  };
+    if (popupActive) {
+      closePopup (popupActive);
+    }
+  }
 }
 
           //активация закрытия попапа кнопкой в самом попапе
-export function closeWithButton(event) {
-  event.stopPropagation();
-  const popupActive = document.querySelector(`.${selectors.classOpenedPopup}`);
-  closePopup(popupActive);
+function closeWithButton(event) {
+  if (event.target.classList.contains(`${selectors.classImgInCloseButton}`)) {
+    const popupActive = document.querySelector(`.${selectors.classOpenedPopup}`);
+    closePopup(popupActive);
+  }
 }
 
-          //установка слушателей для альтернативных способов закрытия модального окна
-function openAdditionalWaysClosePopup(popup) {
+          // установка слушателей на на все варианты закрытия модальных окон
+function waitPopupClosingCommand() {
+  const popups = document.querySelectorAll(`.${selectors.classPopup}`);
+  popups.forEach( (item) => {
+    item.addEventListener('click', closeWithButton);
+    item.addEventListener('click', closePopupClickingOverlay);
+  });
   document.addEventListener('keydown', closePopupKeyESC);
-  const containerPopup = popup.querySelector('.popup__container');
-  containerPopup.addEventListener('click', stopPropagation);
-  popup.addEventListener('click', closePopupClickingOverlay);
-}
+};
 
 // редактирование информации о пользователе в профиле
 
@@ -113,7 +118,6 @@ function prepareSubmitFormProfile() {
 // добавление новой карточки
 
           // обработка запроса пользователя на добавление новой карточки
-import {addNewCard} from './card.js';
 function addCardUser(event) {
   event.preventDefault();
   const popupAddCard = document.querySelector('.popup__add-card');
@@ -124,8 +128,24 @@ function addCardUser(event) {
 }
 
           // установка слушателя на отправку формы с данными для новой карточки
-export function prepareSubmitFormNewCard() {
-  const popupAddCard = document.querySelector('.popup__add-card');
+function prepareSubmitFormNewCard(popupAddCard) {
   const formAddCard = popupAddCard.querySelector(`.${selectors.classFromPopup}`);
   formAddCard.addEventListener('submit', addCardUser);
+}
+
+          // установка слушателя на вызов окна добавления карточек
+function activateButtonAddCard(){
+  const buttonAdd = document.querySelector('.profile__add-button');
+  const popupAddCard = document.querySelector('.popup__add-card');
+  buttonAdd.addEventListener('click', function () {
+    openPopup(popupAddCard);
+  });
+  prepareSubmitFormNewCard(popupAddCard);
+};
+
+export function startWorkingPopups() {
+  activateButtonProfile();
+  activateButtonAddCard();
+  waitPopupClosingCommand();
+  prepareSubmitFormProfile();
 }

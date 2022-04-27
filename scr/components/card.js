@@ -9,13 +9,13 @@ export function addNewCard(link, name, selectors) {
 
 // удаление карточки по выбору пользователя
 function removeCard (event, selectors) {
-  const cardActive = event.currentTarget.closest(`.${selectors.classCard}`);
+  const cardActive = event.target.closest(`.${selectors.classCard}`);
   cardActive.remove();
 }
 
 // добавление и удаление лайка
 function likeToCard(event, selectors) {
-  const likeButtonActive = event.currentTarget;
+  const likeButtonActive = event.target;
   likeButtonActive.classList.toggle(`${selectors.classLikeActive}`);
 }
 
@@ -26,19 +26,6 @@ function createNewCard(link, name, selectors) {
   card.querySelector(`.${selectors.classPhotoInCard}`).src = link;
   card.querySelector(`.${selectors.classPhotoInCard}`).alt = name;
   card.querySelector(`.${selectors.classCaptionInCard}`).textContent = name;
-  // установка слушателя на лайк активной карточки
-  const likeButton = card.querySelector(`.${selectors.classLikeInCard}`);
-  likeButton.addEventListener('click', (event) => {
-    likeToCard(event, selectors);
-  });
-  // установка слушателя на удаление активной карточки
-  const trashButton = card.querySelector(`.${selectors.classButtonTrashInCard}`);
-  trashButton.addEventListener('click', (event) => {
-    removeCard(event, selectors);
-  });
-  // установка слушателя на открытие фотографии активной карточки в модальном окне
-  const photoInCard = card.querySelector(`.${selectors.classPhotoInCard}`);
-  photoInCard.addEventListener('click', openPhotoInPopup);
   return card;
 }
 
@@ -50,4 +37,26 @@ export function cardFunctionality(photosCards, selectors) {
     const name = photosCards[i].name;
     addNewCard(link, name, selectors);
   }
+
+  // установка слушателя на удаление карточки
+  const galleryPhotos = document.querySelector(`.${selectors.classGalleryPhotos}`);
+  galleryPhotos.addEventListener('click', (event) => {
+    if (event.target.classList.contains('button__icon-trash')) {
+      removeCard(event, selectors);
+    }
+  });
+
+  // установка слушателя на лайк активной карточки
+  galleryPhotos.addEventListener('click', (event) => {
+    if (event.target.classList.contains('button__icon-like')) {
+      likeToCard(event, selectors);
+    }
+  });
+
+  // установка слушателя на открытие фотографии активной карточки в модальном окне
+  galleryPhotos.addEventListener('click', (event) => {
+    if (event.target.classList.contains('photos__photo')) {
+      openPhotoInPopup(event);
+    }
+  });
 }
