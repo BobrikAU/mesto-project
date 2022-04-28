@@ -19,15 +19,25 @@ export const selectors = {
   classInputTextError: 'popup__input-text_error',
   classPopup: 'popup',
   classImgInCloseButton: 'button__icon-close',
-  classGalleryPhotos: 'photos'
+  classGalleryPhotos: 'photos',
+  classProfileTitle: 'profile__title',
+  classProfileSubtitle: 'profile__subtitle',
+  classEditProfileButton: 'profile__edit-button',
+  classEditProfilePopup: 'popup__edit-profile',
+  classEditProfilePopupName: 'popup__name-field',
+  classEditProfilePopupYourself: 'popup__field-yourself',
+  classAddPhotoButton: 'profile__add-button',
+  classAddCardPopup: 'popup__add-card',
+  classIconTrashButton: 'button__icon-trash',
+  classIconLikeButton: 'button__icon-like',
 }
 
-import {startWorkingPopups} from './components/modal.js';
-import {cardFunctionality} from './components/card.js';
-import {enableValidation} from './components/validate.js';
+import {startWorkingPopups} from './modal.js';
+import {cardFunctionality} from './card.js';
+import {enableValidation} from './validate.js';
 
 //начало работы модальных окон
-startWorkingPopups();
+startWorkingPopups(selectors);
 
 //добавление карточек
 cardFunctionality([

@@ -1,5 +1,15 @@
 import {openPhotoInPopup} from './modal.js';
 
+// функция создания новой карточки
+function createNewCard(link, name, selectors) {
+  const cardEmpty = document.querySelector(selectors.selectorCardEmpty).content;
+  const card = cardEmpty.cloneNode(true);
+  card.querySelector(`.${selectors.classPhotoInCard}`).src = link;
+  card.querySelector(`.${selectors.classPhotoInCard}`).alt = name;
+  card.querySelector(`.${selectors.classCaptionInCard}`).textContent = name;
+  return card;
+}
+
 // функция дополнения карточки на страницу
 export function addNewCard(link, name, selectors) {
   const card = createNewCard(link, name, selectors);
@@ -19,16 +29,6 @@ function likeToCard(event, selectors) {
   likeButtonActive.classList.toggle(`${selectors.classLikeActive}`);
 }
 
-// функция создания новой карточки
-function createNewCard(link, name, selectors) {
-  const cardEmpty = document.querySelector(selectors.selectorCardEmpty).content;
-  const card = cardEmpty.cloneNode(true);
-  card.querySelector(`.${selectors.classPhotoInCard}`).src = link;
-  card.querySelector(`.${selectors.classPhotoInCard}`).alt = name;
-  card.querySelector(`.${selectors.classCaptionInCard}`).textContent = name;
-  return card;
-}
-
 export function cardFunctionality(photosCards, selectors) {
 
   // автоматическое заполнение карточками при загрузке
@@ -41,22 +41,22 @@ export function cardFunctionality(photosCards, selectors) {
   // установка слушателя на удаление карточки
   const galleryPhotos = document.querySelector(`.${selectors.classGalleryPhotos}`);
   galleryPhotos.addEventListener('click', (event) => {
-    if (event.target.classList.contains('button__icon-trash')) {
+    if (event.target.classList.contains(`${selectors.classIconTrashButton}`)) {
       removeCard(event, selectors);
     }
   });
 
   // установка слушателя на лайк активной карточки
   galleryPhotos.addEventListener('click', (event) => {
-    if (event.target.classList.contains('button__icon-like')) {
+    if (event.target.classList.contains(`${selectors.classIconLikeButton}`)) {
       likeToCard(event, selectors);
     }
   });
 
   // установка слушателя на открытие фотографии активной карточки в модальном окне
   galleryPhotos.addEventListener('click', (event) => {
-    if (event.target.classList.contains('photos__photo')) {
-      openPhotoInPopup(event);
+    if (event.target.classList.contains(`${selectors.classPhotoInCard}`)) {
+      openPhotoInPopup(event, selectors);
     }
   });
 }
