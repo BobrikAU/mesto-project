@@ -1,6 +1,7 @@
 .popup__container_photo {
   max-width: 75vw;
   max-height: 75vh;
+  width: min-content;
   border-radius: 0px;
   background-color: transparent;
   position: relative;
