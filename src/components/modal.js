@@ -1,6 +1,6 @@
 import {makeButtonInactive} from './utils.js';
-import {selectors} from './index.js';
-import {addNewCard} from './card.js';
+import {selectors} from './utils.js';
+import {addNewCard} from './utils.js';
 
 
 //закрытие модальных окон
@@ -41,7 +41,7 @@ function closePopupClickingOverlay(event, selectors) {
     closePopup(event.currentTarget, selectors);
   }
 }
- 
+
           //активация закрытия попапа кнопкой в самом попапе
 function closeWithButton(event, selectors) {
   if (event.target.classList.contains(`${selectors.classImgInCloseButton}`)) {
@@ -49,7 +49,7 @@ function closeWithButton(event, selectors) {
     closePopup(popupActive, selectors);
   }
 }
- 
+
           // установка слушателей на закрытие модальных окон нажатием на кнопку закрытия попапа и оверлей
 function waitPopupClosingCommand(selectors) {
   const popups = document.querySelectorAll(`.${selectors.classPopup}`);

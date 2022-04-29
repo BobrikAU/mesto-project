@@ -1,21 +1,5 @@
 import {openPhotoInPopup} from './modal.js';
-
-// функция создания новой карточки
-function createNewCard(link, name, selectors) {
-  const cardEmpty = document.querySelector(selectors.selectorCardEmpty).content;
-  const card = cardEmpty.cloneNode(true);
-  card.querySelector(`.${selectors.classPhotoInCard}`).src = link;
-  card.querySelector(`.${selectors.classPhotoInCard}`).alt = name;
-  card.querySelector(`.${selectors.classCaptionInCard}`).textContent = name;
-  return card;
-}
-
-// функция дополнения карточки на страницу
-export function addNewCard(link, name, selectors) {
-  const card = createNewCard(link, name, selectors);
-  const listCards = document.querySelector(`.${selectors.classListCards}`);
-  listCards.prepend(card);
-}
+import {addNewCard} from './utils.js';
 
 // удаление карточки по выбору пользователя
 function removeCard (event, selectors) {
