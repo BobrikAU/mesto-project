@@ -1,7 +1,10 @@
-import {makeButtonInactive} from './utils.js';
+//дезактивация кнопки отправки формы
+export const makeButtonInactive = (buttonSubmit, selector) => {
+  buttonSubmit.classList.add(selector);
+  buttonSubmit.setAttribute('disabled', 'yes');
+}
 
 export function enableValidation(selectors) {
-
   //показываем сообщение об ошибке в элементе span
   const schowError = (input, spanWithErrorMessage) => {
     input.classList.add(selectors.classInputTextError);
@@ -53,7 +56,7 @@ export function enableValidation(selectors) {
     inputs.forEach( input => {
       input.addEventListener('input', reveiwInput);
     });
-  }
+  };
 
   validateForms();
 }

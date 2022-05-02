@@ -1,5 +1,4 @@
-import {openPhotoInPopup} from './modal.js';
-import {addNewCard} from './utils.js';
+import {openPopup} from './modal.js';
 
 // удаление карточки по выбору пользователя
 function removeCard (event, selectors) {
@@ -13,34 +12,41 @@ function likeToCard(event, selectors) {
   likeButtonActive.classList.toggle(`${selectors.classLikeActive}`);
 }
 
-export function cardFunctionality(photosCards, selectors) {
+// активация модального окна для просмотра фотографии карточки
+function openPhotoInPopup(event, selectors) {
+  const photoUrl = event.target.src;
+  const photoAlt = event.target.alt;
+  const popupPhotoCard = document.querySelector(`.${selectors.classPopupPhoto}`);
+  popupPhotoCard.querySelector(`.${selectors.classPhotoInPopup}`).src = photoUrl;
+  popupPhotoCard.querySelector(`.${selectors.classPhotoInPopup}`).alt = photoAlt;
+  popupPhotoCard.querySelector(`.${selectors.classTitleInPopupPhoto}`).textContent = photoAlt;
+  openPopup(popupPhotoCard, selectors.classOpenedPopup);
+}
 
-  // автоматическое заполнение карточками при загрузке
-  for (let i = 0; i < photosCards.length; i++) {
-    const link = photosCards[i].link;
-    const name = photosCards[i].name;
-    addNewCard(link, name, selectors);
-  }
+// функция дополнения карточки на страницу
+export function addNewCard(card, selectors) {
+  const listCards = document.querySelector(`.${selectors.classListCards}`);
+  listCards.prepend(card);
+};
 
-  // установка слушателя на удаление карточки
-  const galleryPhotos = document.querySelector(`.${selectors.classGalleryPhotos}`);
-  galleryPhotos.addEventListener('click', (event) => {
-    if (event.target.classList.contains(`${selectors.classIconTrashButton}`)) {
-      removeCard(event, selectors);
-    }
+// функция создания новой карточки
+export function createNewCard(link, name, selectors) {
+  const cardEmpty = document.querySelector(selectors.selectorCardEmpty).content;
+  const card = cardEmpty.cloneNode(true);
+  card.querySelector(`.${selectors.classPhotoInCard}`).src = link;
+  card.querySelector(`.${selectors.classPhotoInCard}`).alt = name;
+  card.querySelector(`.${selectors.classCaptionInCard}`).textContent = name;
+          // установка слушателя на лайк активной карточки
+  card.querySelector(`.${selectors.classIconLikeButton}`).addEventListener('click', (event) => {
+    likeToCard(event, selectors);
   });
-
-  // установка слушателя на лайк активной карточки
-  galleryPhotos.addEventListener('click', (event) => {
-    if (event.target.classList.contains(`${selectors.classIconLikeButton}`)) {
-      likeToCard(event, selectors);
-    }
+          // установка слушателя на удаление карточки
+  card.querySelector(`.${selectors.classIconTrashButton}`).addEventListener('click', (event) => {
+    removeCard(event, selectors);
   });
-
-  // установка слушателя на открытие фотографии активной карточки в модальном окне
-  galleryPhotos.addEventListener('click', (event) => {
-    if (event.target.classList.contains(`${selectors.classPhotoInCard}`)) {
-      openPhotoInPopup(event, selectors);
-    }
+          // установка слушателя на открытие фотографии активной карточки в модальном окне
+  card.querySelector(`.${selectors.classPhotoInCard}`).addEventListener('click', (event) => {
+    openPhotoInPopup(event, selectors);
   });
+  addNewCard(card, selectors);
 }

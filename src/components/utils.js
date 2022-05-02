@@ -30,28 +30,33 @@ export const selectors = {
   classAddCardPopup: 'popup__add-card',
   classIconTrashButton: 'button__icon-trash',
   classIconLikeButton: 'button__icon-like',
-}
+};
 
-// функция создания новой карточки
-function createNewCard(link, name, selectors) {
-  const cardEmpty = document.querySelector(selectors.selectorCardEmpty).content;
-  const card = cardEmpty.cloneNode(true);
-  card.querySelector(`.${selectors.classPhotoInCard}`).src = link;
-  card.querySelector(`.${selectors.classPhotoInCard}`).alt = name;
-  card.querySelector(`.${selectors.classCaptionInCard}`).textContent = name;
-  return card;
-}
+export const photosCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
 
-// функция дополнения карточки на страницу
-export function addNewCard(link, name, selectors) {
-  const card = createNewCard(link, name, selectors);
-  const listCards = document.querySelector(`.${selectors.classListCards}`);
-  listCards.prepend(card);
-}
-
-//дезактивация кнопки отправки формы
-export const makeButtonInactive = (buttonSubmit, selector) => {
-    buttonSubmit.classList.add(selector);
-    buttonSubmit.setAttribute('disabled', 'yes');
-}
 
