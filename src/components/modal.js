@@ -1,4 +1,4 @@
-import {selectors} from './utils.js';
+import {selectorsForModal as selectors} from './utils.js';
 
 //закрытие модальных окон
 
@@ -21,14 +21,14 @@ function waitPopupClosingCommandEsc () {
 }
 
           // активация закрытия модального окна нажатием мышью на оверлей
-export function closePopupClickingOverlay(event, selectors) {
+export function closePopupClickingOverlay(event) {
   if (event.target === event.currentTarget) {
     closePopup(event.currentTarget);
   }
 }
 
           //активация закрытия попапа кнопкой в самом попапе
-export function closeWithButton(event, selectors) {
+export function closeWithButton(event) {
   if (event.target.classList.contains(`${selectors.classImgInCloseButton}`)) {
     const popupActive = document.querySelector(`.${selectors.classOpenedPopup}`);
     closePopup(popupActive);
@@ -44,8 +44,8 @@ export function openPopup (popup, selector) {
 }
 
           //очистка элементов span от сообщений об ошиках и снятие классов ошибок с input
-export function clearErrors(popup, selectors) {
-  popup.querySelectorAll('.popup__input-error').forEach( item => {
+export function clearErrors(popup) {
+  popup.querySelectorAll(`.${selectors.classSpanWithInputError}`).forEach( item => {
     item.textContent = '';
   });
   popup.querySelectorAll(`.${selectors.classInputTextPopups}`).forEach( item => {

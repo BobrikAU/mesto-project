@@ -1,40 +1,39 @@
 import {openPopup} from './modal.js';
+import {selectorsForCard as selectors, popupPhotoCard, photoInPopup, titleInPopupPhoto, listCards, cardEmpty} from './utils.js';
 
 // удаление карточки по выбору пользователя
-function removeCard (event, selectors) {
+function removeCard (event) {
   const cardActive = event.target.closest(`.${selectors.classCard}`);
   cardActive.remove();
 }
 
 // добавление и удаление лайка
-function likeToCard(event, selectors) {
+function likeToCard(event) {
   const likeButtonActive = event.target;
   likeButtonActive.classList.toggle(`${selectors.classLikeActive}`);
 }
 
 // активация модального окна для просмотра фотографии карточки
-function openPhotoInPopup(event, selectors) {
+function openPhotoInPopup(event) {
   const photoUrl = event.target.src;
   const photoAlt = event.target.alt;
-  const popupPhotoCard = document.querySelector(`.${selectors.classPopupPhoto}`);
-  popupPhotoCard.querySelector(`.${selectors.classPhotoInPopup}`).src = photoUrl;
-  popupPhotoCard.querySelector(`.${selectors.classPhotoInPopup}`).alt = photoAlt;
-  popupPhotoCard.querySelector(`.${selectors.classTitleInPopupPhoto}`).textContent = photoAlt;
+  photoInPopup.src = photoUrl;
+  photoInPopup.alt = photoAlt;
+  titleInPopupPhoto.textContent = photoAlt;
   openPopup(popupPhotoCard, selectors.classOpenedPopup);
 }
 
 // функция дополнения карточки на страницу
-export function addNewCard(card, selectors) {
-  const listCards = document.querySelector(`.${selectors.classListCards}`);
+export function addNewCard(card) {
   listCards.prepend(card);
 };
 
 // функция создания новой карточки
-export function createNewCard(link, name, selectors) {
-  const cardEmpty = document.querySelector(selectors.selectorCardEmpty).content;
+export function createNewCard(link, name) {
   const card = cardEmpty.cloneNode(true);
-  card.querySelector(`.${selectors.classPhotoInCard}`).src = link;
-  card.querySelector(`.${selectors.classPhotoInCard}`).alt = name;
+  const photoInCard = card.querySelector(`.${selectors.classPhotoInCard}`);
+  photoInCard.src = link;
+  photoInCard.alt = name;
   card.querySelector(`.${selectors.classCaptionInCard}`).textContent = name;
           // установка слушателя на лайк активной карточки
   card.querySelector(`.${selectors.classIconLikeButton}`).addEventListener('click', (event) => {
@@ -45,7 +44,7 @@ export function createNewCard(link, name, selectors) {
     removeCard(event, selectors);
   });
           // установка слушателя на открытие фотографии активной карточки в модальном окне
-  card.querySelector(`.${selectors.classPhotoInCard}`).addEventListener('click', (event) => {
+  photoInCard.addEventListener('click', (event) => {
     openPhotoInPopup(event, selectors);
   });
   addNewCard(card, selectors);

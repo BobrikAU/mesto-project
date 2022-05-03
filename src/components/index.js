@@ -1,27 +1,22 @@
 import './../pages/index.css';
-import {selectors} from './utils.js';
-import {enableValidation} from './validate.js';
-import {makeButtonInactive} from './validate.js';
-import {clearErrors} from './modal.js';
-import {openPopup} from './modal.js';
-import {closePopup} from './modal.js';
+import {selectorsForIndex as selectors, selectorsForValidate, photosCards, profileName, profileSelf, popupEditProfile, popupProfileName, popupProfileSelf, buttonSubmitProfile} from './utils.js';
+//import {selectorsForValidate} from './utils.js';
+import {enableValidation, makeButtonInactive} from './validate.js';
+//import {makeButtonInactive} from './validate.js';
+import {clearErrors, openPopup, closePopup, closeWithButton, closePopupClickingOverlay} from './modal.js';
+//import {openPopup} from './modal.js';
+//import {closePopup} from './modal.js';
 import {createNewCard} from './card.js';
-import {photosCards} from './utils.js';
-import {closeWithButton} from './modal.js';
-import {closePopupClickingOverlay} from './modal.js';
+//import {photosCards} from './utils.js';
+//import {closeWithButton} from './modal.js';
+//import {closePopupClickingOverlay} from './modal.js';
 
 // вывод окна редактирования профиля на экран
 function openPopupEditProfile() {
-  const profileName = document.querySelector(`.${selectors.classProfileTitle}`);
-  const profileSelf = document.querySelector(`.${selectors.classProfileSubtitle}`);
-  const popupEditProfile = document.querySelector(`.${selectors.classEditProfilePopup}`);
-  const popupProfileName = popupEditProfile.querySelector(`.${selectors.classEditProfilePopupName}`);
-  const popupProfileSelf = popupEditProfile.querySelector(`.${selectors.classEditProfilePopupYourself}`);
-  const buttonSubmit = popupEditProfile.querySelector(`.${selectors.classButtonSubmit}`);
   popupProfileName.value = profileName.textContent;
   popupProfileSelf.value = profileSelf.textContent;
-  makeButtonInactive(buttonSubmit, selectors.classButtonSubmitDisabled);
-  clearErrors(popupEditProfile, selectors)
+  makeButtonInactive(buttonSubmitProfile, selectors.classButtonSubmitDisabled);
+  clearErrors(popupEditProfile)
   openPopup(popupEditProfile, selectors.classOpenedPopup);
 }
 
@@ -34,12 +29,8 @@ function openPopupEditProfile() {
 // редактирование информации о пользователе в профиле
 
           //обработка запроса на редактирование профиля
-function editProfile(event, popupEditProfile) {
+function editProfile(event) {
   event.preventDefault();
-  const profileName = document.querySelector(`.${selectors.classProfileTitle}`);
-  const popupProfileName = popupEditProfile.querySelector(`.${selectors.classEditProfilePopupName}`);
-  const profileSelf = document.querySelector(`.${selectors.classProfileSubtitle}`);
-  const popupProfileSelf = popupEditProfile.querySelector(`.${selectors.classEditProfilePopupYourself}`);
   profileName.textContent = popupProfileName.value;
   profileSelf.textContent = popupProfileSelf.value;
   closePopup(popupEditProfile);
@@ -47,10 +38,9 @@ function editProfile(event, popupEditProfile) {
 
           //установка слушателя на отправку формы с данными для редактирования профиля
 (function prepareSubmitFormProfile() {
-  const popupEditProfile = document.querySelector(`.${selectors.classEditProfilePopup}`);
   const formEditProfile = popupEditProfile.querySelector(`.${selectors.classFromPopup}`);
   formEditProfile.addEventListener('submit', (event) => {
-    editProfile(event, popupEditProfile);
+    editProfile(event);
   });
 })();
 
@@ -59,7 +49,7 @@ function editProfile(event, popupEditProfile) {
           // обработка запроса пользователя на добавление новой карточки
 function addCardUser(event, popupAddCard, formAddCard) {
   event.preventDefault();
-  createNewCard(formAddCard.link.value, formAddCard.title.value, selectors);
+  createNewCard(formAddCard.link.value, formAddCard.title.value);
   closePopup(popupAddCard);
 }
 
@@ -74,12 +64,12 @@ function prepareSubmitFormNewCard(popupAddCard, formAddCard) {
 (function activateButtonAddCard(){
   const buttonAdd = document.querySelector(`.${selectors.classAddPhotoButton}`);
   const popupAddCard = document.querySelector(`.${selectors.classAddCardPopup}`);
-  const buttonSubmit = popupAddCard.querySelector(`.${selectors.classButtonSubmit}`);
+  const buttonSubmitCard = popupAddCard.querySelector(`.${selectors.classButtonSubmit}`);
   const formAddCard = popupAddCard.querySelector(`.${selectors.classFromPopup}`);
   buttonAdd.addEventListener('click', function () {
-    makeButtonInactive(buttonSubmit, selectors.classButtonSubmitDisabled);
+    makeButtonInactive(buttonSubmitCard, selectors.classButtonSubmitDisabled);
     formAddCard.reset();
-    clearErrors(popupAddCard, selectors)
+    clearErrors(popupAddCard)
     openPopup(popupAddCard, selectors.classOpenedPopup);
   });
   prepareSubmitFormNewCard(popupAddCard, formAddCard);
@@ -90,10 +80,10 @@ function prepareSubmitFormNewCard(popupAddCard, formAddCard) {
   const popups = document.querySelectorAll(`.${selectors.classPopup}`);
   popups.forEach( (item) => {
     item.addEventListener('click', (event) => {
-      closeWithButton(event, selectors)
+      closeWithButton(event)
     });
     item.addEventListener('click', (event) => {
-      closePopupClickingOverlay(event, selectors)
+      closePopupClickingOverlay(event)
     });
   });
 })();
@@ -102,10 +92,10 @@ function prepareSubmitFormNewCard(popupAddCard, formAddCard) {
 for (let i = 0; i < photosCards.length; i++) {
   const link = photosCards[i].link;
   const name = photosCards[i].name;
-  createNewCard(link, name, selectors);
+  createNewCard(link, name);
 }
 
 //валидация форм, запуск кода модуля validate
-enableValidation(selectors);
+enableValidation(selectorsForValidate);
 
 
