@@ -1,15 +1,8 @@
 import './../pages/index.css';
 import {selectorsForIndex as selectors, selectorsForValidate, photosCards, profileName, profileSelf, popupEditProfile, popupProfileName, popupProfileSelf, buttonSubmitProfile} from './utils.js';
-//import {selectorsForValidate} from './utils.js';
 import {enableValidation, makeButtonInactive} from './validate.js';
-//import {makeButtonInactive} from './validate.js';
 import {clearErrors, openPopup, closePopup, closeWithButton, closePopupClickingOverlay} from './modal.js';
-//import {openPopup} from './modal.js';
-//import {closePopup} from './modal.js';
 import {createNewCard} from './card.js';
-//import {photosCards} from './utils.js';
-//import {closeWithButton} from './modal.js';
-//import {closePopupClickingOverlay} from './modal.js';
 
 // вывод окна редактирования профиля на экран
 function openPopupEditProfile() {
