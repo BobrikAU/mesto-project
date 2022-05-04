@@ -8,11 +8,8 @@ export const selectorsForValidate = {
 }
 
 export const selectorsForModal = {
-  classInputTextPopups: 'popup__input-text',
   classOpenedPopup: 'popup_opened',
   classImgInCloseButton: 'button__icon-close',
-  classSpanWithInputError: 'popup__input-error',
-  classInputTextError: 'popup__input-text_error',
 }
 
 export const selectorsForCard = {
@@ -26,6 +23,9 @@ export const selectorsForCard = {
 }
 
 export const selectorsForIndex = {
+  classInputTextError: 'popup__input-text_error',
+  classSpanWithInputError: 'popup__input-error',
+  classInputTextPopups: 'popup__input-text',
   classButtonSubmitDisabled: 'popup__submit_disabled',
   classFromPopup: 'popup__form',
   classButtonSubmit: 'popup__submit',

@@ -20,36 +20,18 @@ function waitPopupClosingCommandEsc () {
   document.addEventListener('keydown', closePopupKeyESC);
 }
 
-          // активация закрытия модального окна нажатием мышью на оверлей
-export function closePopupClickingOverlay(event) {
-  if (event.target === event.currentTarget) {
+          //активация закрытия модального окна нахатием мыши на оверлей или на кнопку в самом попапе
+export function closeWithButtonOderClickingOverlay(event) {
+  if (event.target === event.currentTarget || event.target.classList.contains(`${selectors.classImgInCloseButton}`)) {
     closePopup(event.currentTarget);
-  }
-}
-
-          //активация закрытия попапа кнопкой в самом попапе
-export function closeWithButton(event) {
-  if (event.target.classList.contains(`${selectors.classImgInCloseButton}`)) {
-    const popupActive = document.querySelector(`.${selectors.classOpenedPopup}`);
-    closePopup(popupActive);
   }
 }
 
 //открытие модальных окон
 
           // непосредственное открытие модального окна
-export function openPopup (popup, selector) {
-  popup.classList.add(selector);
+export function openPopup (popup) {
+  popup.classList.add(selectors.classOpenedPopup);
   waitPopupClosingCommandEsc ();
-}
-
-          //очистка элементов span от сообщений об ошиках и снятие классов ошибок с input
-export function clearErrors(popup) {
-  popup.querySelectorAll(`.${selectors.classSpanWithInputError}`).forEach( item => {
-    item.textContent = '';
-  });
-  popup.querySelectorAll(`.${selectors.classInputTextPopups}`).forEach( item => {
-    item.classList.remove(selectors.classInputTextError);
-  });
 }
 

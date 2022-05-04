@@ -1,5 +1,9 @@
 import {openPopup} from './modal.js';
-import {selectorsForCard as selectors, popupPhotoCard, photoInPopup, titleInPopupPhoto, listCards, cardEmpty} from './utils.js';
+import {selectorsForCard as selectors,
+        popupPhotoCard,
+        photoInPopup,
+        titleInPopupPhoto,
+        cardEmpty} from './utils.js';
 
 // удаление карточки по выбору пользователя
 function removeCard (event) {
@@ -20,13 +24,8 @@ function openPhotoInPopup(event) {
   photoInPopup.src = photoUrl;
   photoInPopup.alt = photoAlt;
   titleInPopupPhoto.textContent = photoAlt;
-  openPopup(popupPhotoCard, selectors.classOpenedPopup);
+  openPopup(popupPhotoCard);
 }
-
-// функция дополнения карточки на страницу
-export function addNewCard(card) {
-  listCards.prepend(card);
-};
 
 // функция создания новой карточки
 export function createNewCard(link, name) {
@@ -47,5 +46,5 @@ export function createNewCard(link, name) {
   photoInCard.addEventListener('click', (event) => {
     openPhotoInPopup(event, selectors);
   });
-  addNewCard(card, selectors);
+  return card;
 }

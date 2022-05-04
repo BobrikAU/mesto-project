@@ -1,7 +1,20 @@
 import './../pages/index.css';
-import {selectorsForIndex as selectors, selectorsForValidate, photosCards, profileName, profileSelf, popupEditProfile, popupProfileName, popupProfileSelf, buttonSubmitProfile} from './utils.js';
-import {enableValidation, makeButtonInactive} from './validate.js';
-import {clearErrors, openPopup, closePopup, closeWithButton, closePopupClickingOverlay} from './modal.js';
+import {selectorsForIndex as selectors,
+        selectorsForValidate,
+        photosCards,
+        profileName,
+        profileSelf,
+        popupEditProfile,
+        popupProfileName,
+        popupProfileSelf,
+        listCards,
+        buttonSubmitProfile} from './utils.js';
+import {enableValidation,
+        clearErrors,
+        makeButtonInactive} from './validate.js';
+import {openPopup,
+        closePopup,
+        closeWithButtonOderClickingOverlay} from './modal.js';
 import {createNewCard} from './card.js';
 
 // вывод окна редактирования профиля на экран
@@ -9,8 +22,8 @@ function openPopupEditProfile() {
   popupProfileName.value = profileName.textContent;
   popupProfileSelf.value = profileSelf.textContent;
   makeButtonInactive(buttonSubmitProfile, selectors.classButtonSubmitDisabled);
-  clearErrors(popupEditProfile)
-  openPopup(popupEditProfile, selectors.classOpenedPopup);
+  clearErrors(popupEditProfile, selectors.classSpanWithInputError, selectors.classInputTextPopups, selectors.classInputTextError)
+  openPopup(popupEditProfile);
 }
 
           // установка слушателя на кнопку вызова окна редактирования профиля
@@ -39,10 +52,16 @@ function editProfile(event) {
 
 // добавление новой карточки
 
+          // функция дополнения карточки на страницу
+function addNewCard(card) {
+  listCards.prepend(card);
+};
+
           // обработка запроса пользователя на добавление новой карточки
 function addCardUser(event, popupAddCard, formAddCard) {
   event.preventDefault();
-  createNewCard(formAddCard.link.value, formAddCard.title.value);
+  const card = createNewCard(formAddCard.link.value, formAddCard.title.value);
+  addNewCard(card);
   closePopup(popupAddCard);
 }
 
@@ -62,8 +81,8 @@ function prepareSubmitFormNewCard(popupAddCard, formAddCard) {
   buttonAdd.addEventListener('click', function () {
     makeButtonInactive(buttonSubmitCard, selectors.classButtonSubmitDisabled);
     formAddCard.reset();
-    clearErrors(popupAddCard)
-    openPopup(popupAddCard, selectors.classOpenedPopup);
+    clearErrors(popupAddCard, selectors.classSpanWithInputError, selectors.classInputTextPopups, selectors.classInputTextError);
+    openPopup(popupAddCard);
   });
   prepareSubmitFormNewCard(popupAddCard, formAddCard);
 })();
@@ -73,10 +92,7 @@ function prepareSubmitFormNewCard(popupAddCard, formAddCard) {
   const popups = document.querySelectorAll(`.${selectors.classPopup}`);
   popups.forEach( (item) => {
     item.addEventListener('click', (event) => {
-      closeWithButton(event)
-    });
-    item.addEventListener('click', (event) => {
-      closePopupClickingOverlay(event)
+      closeWithButtonOderClickingOverlay(event);
     });
   });
 })();
@@ -85,7 +101,8 @@ function prepareSubmitFormNewCard(popupAddCard, formAddCard) {
 for (let i = 0; i < photosCards.length; i++) {
   const link = photosCards[i].link;
   const name = photosCards[i].name;
-  createNewCard(link, name);
+  const card = createNewCard(link, name);
+  addNewCard(card)
 }
 
 //валидация форм, запуск кода модуля validate

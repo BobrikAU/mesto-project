@@ -1,3 +1,13 @@
+//очистка элементов span от сообщений об ошиках и снятие классов ошибок с input
+export function clearErrors(popup, selecotrSpanError, selectorTextInputs, selectorInputError) {
+  popup.querySelectorAll(`.${selecotrSpanError}`).forEach( item => {
+    item.textContent = '';
+  });
+  popup.querySelectorAll(`.${selectorTextInputs}`).forEach( item => {
+    item.classList.remove(selectorInputError);
+  });
+}
+
 //дезактивация кнопки отправки формы
 export const makeButtonInactive = (buttonSubmit, selector) => {
   buttonSubmit.classList.add(selector);
