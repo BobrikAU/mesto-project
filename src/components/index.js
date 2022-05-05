@@ -8,7 +8,8 @@ import {selectorsForIndex as selectors,
         popupProfileName,
         popupProfileSelf,
         listCards,
-        buttonSubmitProfile} from './utils.js';
+        buttonSubmitProfile,
+        profileAvatar} from './utils.js';
 import {enableValidation,
         clearErrors,
         makeButtonInactive} from './validate.js';
@@ -16,6 +17,24 @@ import {openPopup,
         closePopup,
         closeWithButtonOderClickingOverlay} from './modal.js';
 import {createNewCard} from './card.js';
+import {makeProfilSection} from './api.js';
+
+//загрузка информации о пользователе с сервера и вывод на экран
+makeProfilSection()
+  .then((user) => {
+    profileName.textContent = user.name;
+    profileSelf.textContent = user.about;
+    profileAvatar.src = user.avatar;
+    profileAvatar.alt = `аватар ${user.name}`;
+  })
+  .catch((err) => {
+    if (typeof(err) === 'string') {
+      profileName.textContent = err;
+    }else{
+      profileName.textContent = 'Что-то не так';
+    }
+    profileSelf.textContent = 'Попробуйте перезагрузить страницу';
+  });
 
 // вывод окна редактирования профиля на экран
 function openPopupEditProfile() {

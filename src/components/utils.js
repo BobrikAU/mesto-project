@@ -47,7 +47,8 @@ const selectors = {
   classEditProfilePopup: 'popup__edit-profile',
   classEditProfilePopupName: 'popup__name-field',
   classEditProfilePopupYourself: 'popup__field-yourself',
-  classButtonSubmit: 'popup__submit'
+  classButtonSubmit: 'popup__submit',
+  classProfileAvatar: 'profile__avatar'
 }
 
 export const popupPhotoCard = document.querySelector(`.${selectors.classPopupPhoto}`);
@@ -57,6 +58,7 @@ export const listCards = document.querySelector(`.${selectors.classListCards}`);
 export const cardEmpty = document.querySelector(selectors.selectorCardEmpty).content;
 export const profileName = document.querySelector(`.${selectors.classProfileTitle}`);
 export const profileSelf = document.querySelector(`.${selectors.classProfileSubtitle}`);
+export const profileAvatar = document.querySelector(`.${selectors.classProfileAvatar}`);
 export const popupEditProfile = document.querySelector(`.${selectors.classEditProfilePopup}`);
 export const popupProfileName = popupEditProfile.querySelector(`.${selectors.classEditProfilePopupName}`);
 export const popupProfileSelf = popupEditProfile.querySelector(`.${selectors.classEditProfilePopupYourself}`);
