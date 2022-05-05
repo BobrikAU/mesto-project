@@ -64,7 +64,7 @@ export const popupProfileName = popupEditProfile.querySelector(`.${selectors.cla
 export const popupProfileSelf = popupEditProfile.querySelector(`.${selectors.classEditProfilePopupYourself}`);
 export const buttonSubmitProfile = popupEditProfile.querySelector(`.${selectors.classButtonSubmit}`);
 
-export const photosCards = [
+/*export const photosCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -89,6 +89,6 @@ export const photosCards = [
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
-];
+];*/
 
 

@@ -1,7 +1,7 @@
 import './../pages/index.css';
 import {selectorsForIndex as selectors,
         selectorsForValidate,
-        photosCards,
+        //photosCards,
         profileName,
         profileSelf,
         popupEditProfile,
@@ -17,12 +17,14 @@ import {openPopup,
         closePopup,
         closeWithButtonOderClickingOverlay} from './modal.js';
 import {createNewCard} from './card.js';
-import {makeProfilSection} from './api.js';
+import {makeProfilSection,
+        uploadСards} from './api.js';
 
 //загрузка информации о пользователе с сервера и вывод на экран
 makeProfilSection()
   .then((user) => {
     profileName.textContent = user.name;
+    profileName.setAttribute('users_id', user._id);
     profileSelf.textContent = user.about;
     profileAvatar.src = user.avatar;
     profileAvatar.alt = `аватар ${user.name}`;
@@ -79,7 +81,7 @@ function addNewCard(card) {
           // обработка запроса пользователя на добавление новой карточки
 function addCardUser(event, popupAddCard, formAddCard) {
   event.preventDefault();
-  const card = createNewCard(formAddCard.link.value, formAddCard.title.value);
+  const card = createNewCard(formAddCard.title.value, `Изображение ${formAddCard.title.value}`, formAddCard.link.value);
   addNewCard(card);
   closePopup(popupAddCard);
 }
@@ -116,13 +118,28 @@ function prepareSubmitFormNewCard(popupAddCard, formAddCard) {
   });
 })();
 
-// автоматическое заполнение карточками при загрузке
-for (let i = 0; i < photosCards.length; i++) {
-  const link = photosCards[i].link;
-  const name = photosCards[i].name;
-  const card = createNewCard(link, name);
-  addNewCard(card)
-}
+uploadСards ()
+  .then((photosCards) => {
+    let nummers = [];
+    while (nummers.length < 6) {
+      const nummer = Math.floor(Math.random() * photosCards.length)
+      if (!nummers.some( item => item === nummer)) {
+        const link = photosCards[nummer].link;
+        const imgAlt = `Изображение ${photosCards[nummer].name}`;
+        const name = photosCards[nummer].name;
+        const ownersId = photosCards[nummer].owner._id;
+        const card = createNewCard(name, imgAlt, link, ownersId);
+        addNewCard(card);
+        nummers.push(nummer);
+      }
+    }
+  })
+  .catch(() => {
+    const name = 'Перезагрузите страницу';
+    const imgAlt = 'Что-то пошло не так. Перезагрузите страницу';
+    const card = createNewCard(name, imgAlt);
+    addNewCard(card);
+  })
 
 //валидация форм, запуск кода модуля validate
 enableValidation(selectorsForValidate);

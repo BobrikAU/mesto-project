@@ -28,12 +28,13 @@ function openPhotoInPopup(event) {
 }
 
 // функция создания новой карточки
-export function createNewCard(link, name) {
+export function createNewCard(name, imgAlt, link, ownersId) {
   const card = cardEmpty.cloneNode(true);
   const photoInCard = card.querySelector(`.${selectors.classPhotoInCard}`);
   photoInCard.src = link;
-  photoInCard.alt = name;
+  photoInCard.alt = imgAlt;
   card.querySelector(`.${selectors.classCaptionInCard}`).textContent = name;
+  card.querySelector(`.${selectors.classCard}`).setAttribute('owners_id', ownersId);
           // установка слушателя на лайк активной карточки
   card.querySelector(`.${selectors.classIconLikeButton}`).addEventListener('click', (event) => {
     likeToCard(event, selectors);
