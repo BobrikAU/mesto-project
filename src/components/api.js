@@ -69,3 +69,29 @@ export const requestProfileEditing = (nameUser, aboutUser) => {
       return Promise.reject();
     })
 }
+
+//запрос на добавление новой карточки на сервер
+export const requestAddCard = (cardTitle, cardLink) => {
+  return fetch (`${dataUser.urlCohort}/cards`, {
+    method: 'POST',
+    headers: {
+      authorization: dataUser.token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: cardTitle,
+      link: cardLink
+    })
+  })
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }else{
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+    return Promise.reject();
+  })
+}

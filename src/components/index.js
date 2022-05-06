@@ -19,7 +19,8 @@ import {openPopup,
 import {createNewCard} from './card.js';
 import {makeProfilSection,
         uploadСards,
-        requestProfileEditing} from './api.js';
+        requestProfileEditing,
+        requestAddCard} from './api.js';
 
 //загрузка информации о пользователе с сервера и вывод на экран
 makeProfilSection()
@@ -85,9 +86,12 @@ function addNewCard(card) {
           // обработка запроса пользователя на добавление новой карточки
 function addCardUser(event, popupAddCard, formAddCard) {
   event.preventDefault();
-  const card = createNewCard(formAddCard.title.value, `Изображение ${formAddCard.title.value}`, formAddCard.link.value);
-  addNewCard(card);
-  closePopup(popupAddCard);
+  requestAddCard(formAddCard.title.value, formAddCard.link.value)
+    .then((objectNewCard) => {
+      const card = createNewCard(objectNewCard.name, `Изображение ${objectNewCard.name}`, objectNewCard.link, objectNewCard.owner._id);
+      addNewCard(card);
+      closePopup(popupAddCard);
+    })
 }
 
           // установка слушателя на отправку формы с данными для новой карточки
