@@ -43,3 +43,29 @@ export const uploadСards = () => {
       return Promise.reject()
     });
 }
+
+//запрос на редактирование профиля пользователя
+export const requestProfileEditing = (nameUser, aboutUser) => {
+  return fetch(`${dataUser.urlCohort}/users/me`, {
+    method: 'PATCH',
+    headers: {
+      authorization: dataUser.token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: nameUser,
+      about: aboutUser
+    })
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }else{
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      return Promise.reject();
+    })
+}

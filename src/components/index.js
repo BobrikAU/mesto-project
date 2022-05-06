@@ -18,7 +18,8 @@ import {openPopup,
         closeWithButtonOderClickingOverlay} from './modal.js';
 import {createNewCard} from './card.js';
 import {makeProfilSection,
-        uploadСards} from './api.js';
+        uploadСards,
+        requestProfileEditing} from './api.js';
 
 //загрузка информации о пользователе с сервера и вывод на экран
 makeProfilSection()
@@ -58,9 +59,12 @@ function openPopupEditProfile() {
           //обработка запроса на редактирование профиля
 function editProfile(event) {
   event.preventDefault();
-  profileName.textContent = popupProfileName.value;
-  profileSelf.textContent = popupProfileSelf.value;
-  closePopup(popupEditProfile);
+  requestProfileEditing(popupProfileName.value, popupProfileSelf.value)
+    .then((newProfile) => {
+      profileName.textContent = newProfile.name;
+      profileSelf.textContent = newProfile.about;
+      closePopup(popupEditProfile);
+    })
 }
 
           //установка слушателя на отправку формы с данными для редактирования профиля
