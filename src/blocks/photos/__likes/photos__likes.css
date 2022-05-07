@@ -1,0 +1,7 @@
+.photos__likes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 43px;
+  padding-top: 5px;
+}

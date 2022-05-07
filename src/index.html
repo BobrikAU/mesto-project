@@ -101,7 +101,10 @@
     <li class="photos__item">
         <img src="" alt="" class="photos__photo">
         <h2 class="photos__caption"></h2>
-        <button type="button" class="button button_function_like photos__like-button"><img src="<%=require('./images/like-no.svg')%>" alt="лайк выключен" class="button__icon-like"></button>
+        <div class="photos__likes">
+          <button type="button" class="button button_function_like photos__like-button"><img src="<%=require('./images/like-no.svg')%>" alt="лайк выключен" class="button__icon-like"></button>
+          <span class="photos__nummer-likes"></span>
+        </div>
         <button type="button" class="button button_function_trash"><img src="<%=require('./images/icon-trash.svg')%>" alt="иконка мусорной корзины" class="button__icon-trash"></button>
     </li>
   </template>

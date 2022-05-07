@@ -24,7 +24,7 @@ export const makeProfilSection = () => {
     })
 }
 
-//запрос данных для автоматического заплнения страницы карточками при загрузке
+//запрос данных для автоматического заполнения страницы карточками при загрузке
 export const uploadСards = () => {
   return fetch(`${dataUser.urlCohort}/cards`, {
     headers: {

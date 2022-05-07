@@ -19,7 +19,8 @@ export const selectorsForCard = {
   classPhotoInCard: 'photos__photo',
   classCaptionInCard: 'photos__caption',
   classIconLikeButton: 'button__icon-like',
-  classIconTrashButton: 'button__icon-trash'
+  classIconTrashButton: 'button__icon-trash',
+  classNummerLikes: 'photos__nummer-likes'
 }
 
 export const selectorsForIndex = {

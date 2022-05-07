@@ -88,7 +88,11 @@ function addCardUser(event, popupAddCard, formAddCard) {
   event.preventDefault();
   requestAddCard(formAddCard.title.value, formAddCard.link.value)
     .then((objectNewCard) => {
-      const card = createNewCard(objectNewCard.name, `Изображение ${objectNewCard.name}`, objectNewCard.link, objectNewCard.owner._id);
+      const card = createNewCard(objectNewCard.name,
+                                 `Изображение ${objectNewCard.name}`,
+                                 objectNewCard.link,
+                                 objectNewCard.owner._id,
+                                 objectNewCard.likes.length);
       addNewCard(card);
       closePopup(popupAddCard);
     })
@@ -110,7 +114,10 @@ function prepareSubmitFormNewCard(popupAddCard, formAddCard) {
   buttonAdd.addEventListener('click', function () {
     makeButtonInactive(buttonSubmitCard, selectors.classButtonSubmitDisabled);
     formAddCard.reset();
-    clearErrors(popupAddCard, selectors.classSpanWithInputError, selectors.classInputTextPopups, selectors.classInputTextError);
+    clearErrors(popupAddCard,
+                selectors.classSpanWithInputError,
+                selectors.classInputTextPopups,
+                selectors.classInputTextError);
     openPopup(popupAddCard);
   });
   prepareSubmitFormNewCard(popupAddCard, formAddCard);
@@ -136,7 +143,8 @@ uploadСards ()
         const imgAlt = `Изображение ${photosCards[nummer].name}`;
         const name = photosCards[nummer].name;
         const ownersId = photosCards[nummer].owner._id;
-        const card = createNewCard(name, imgAlt, link, ownersId);
+        const nummerLikes = photosCards[nummer].likes.length;
+        const card = createNewCard(name, imgAlt, link, ownersId, nummerLikes);
         addNewCard(card);
         nummers.push(nummer);
       }
