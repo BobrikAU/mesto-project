@@ -1,3 +1,8 @@
+export const dataUser = {
+  urlCohort: 'https://mesto.nomoreparties.co/v1/plus-cohort-9',
+  token: '7f8d2163-5607-4805-9bb9-bec28100308e'
+}
+
 // списки используемых селекторов
 export const selectorsForValidate = {
   classInputTextError: 'popup__input-text_error',
@@ -19,7 +24,7 @@ export const selectorsForCard = {
   classPhotoInCard: 'photos__photo',
   classCaptionInCard: 'photos__caption',
   classIconLikeButton: 'button__icon-like',
-  classIconTrashButton: 'button__icon-trash',
+  classTrashButton: 'button_function_trash',
   classNummerLikes: 'photos__nummer-likes'
 }
 

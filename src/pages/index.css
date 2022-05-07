@@ -26,6 +26,7 @@
 @import url(../blocks/button/__icon-like/button__icon-like.css);
 @import url(../blocks/photos/__nummer-likes/photos__nummer-likes.css);
 @import url(../blocks/button/_function/button_function_trash.css);
+@import url(../blocks/button/_hidden/button_hidden.css);
 @import url(../blocks/button/__icon-trash/button__icon-trash.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text/footer__text.css);

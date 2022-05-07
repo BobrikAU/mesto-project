@@ -9,7 +9,8 @@ import {selectorsForIndex as selectors,
         popupProfileSelf,
         listCards,
         buttonSubmitProfile,
-        profileAvatar} from './utils.js';
+        profileAvatar,
+        dataUser} from './utils.js';
 import {enableValidation,
         clearErrors,
         makeButtonInactive} from './validate.js';
@@ -17,27 +18,66 @@ import {openPopup,
         closePopup,
         closeWithButtonOderClickingOverlay} from './modal.js';
 import {createNewCard} from './card.js';
-import {makeProfilSection,
+import {uploadProfilSection,
         uploadСards,
         requestProfileEditing,
         requestAddCard} from './api.js';
 
 //загрузка информации о пользователе с сервера и вывод на экран
-makeProfilSection()
-  .then((user) => {
-    profileName.textContent = user.name;
-    profileName.setAttribute('users_id', user._id);
-    profileSelf.textContent = user.about;
-    profileAvatar.src = user.avatar;
-    profileAvatar.alt = `аватар ${user.name}`;
+function makeProfilSection() {
+  uploadProfilSection()
+    .then((user) => {
+      profileName.textContent = user.name;
+      dataUser.id = user._id;
+      profileSelf.textContent = user.about;
+      profileAvatar.src = user.avatar;
+      profileAvatar.alt = `аватар ${user.name}`;
+    })
+    .catch((err) => {
+      if (typeof(err) === 'string') {
+        profileName.textContent = err;
+      }else{
+        profileName.textContent = 'Что-то не так';
+      }
+      profileSelf.textContent = 'Попробуйте перезагрузить страницу';
+    });
+}
+
+//автоматическая загрузка 6 карточек при загрузке
+function makeCards() {
+  uploadСards ()
+    .then((photosCards) => {
+      let nummers = [];
+      while (nummers.length < 6) {
+        const nummer = Math.floor(Math.random() * photosCards.length)
+        if (!nummers.some( item => item === nummer)) {
+          const link = photosCards[nummer].link;
+          const imgAlt = `Изображение ${photosCards[nummer].name}`;
+          const name = photosCards[nummer].name;
+          const ownersId = photosCards[nummer].owner._id;
+          const nummerLikes = photosCards[nummer].likes.length;
+          const cardId = photosCards[nummer]._id;
+          const card = createNewCard(name, imgAlt, link, ownersId, cardId, nummerLikes);
+          addNewCard(card);
+          nummers.push(nummer);
+        }
+      }
+    })
+    .catch(() => {
+      const name = 'Перезагрузите страницу';
+      const imgAlt = 'Что-то пошло не так. Перезагрузите страницу';
+      const card = createNewCard(name, imgAlt);
+      addNewCard(card);
+    })
+}
+
+//определение последовательности действий при загрузке
+Promise.resolve()
+  .then(() => {
+    makeProfilSection();
   })
-  .catch((err) => {
-    if (typeof(err) === 'string') {
-      profileName.textContent = err;
-    }else{
-      profileName.textContent = 'Что-то не так';
-    }
-    profileSelf.textContent = 'Попробуйте перезагрузить страницу';
+  .then(() => {
+    makeCards();
   });
 
 // вывод окна редактирования профиля на экран
@@ -92,6 +132,7 @@ function addCardUser(event, popupAddCard, formAddCard) {
                                  `Изображение ${objectNewCard.name}`,
                                  objectNewCard.link,
                                  objectNewCard.owner._id,
+                                 objectNewCard._id,
                                  objectNewCard.likes.length);
       addNewCard(card);
       closePopup(popupAddCard);
@@ -132,30 +173,6 @@ function prepareSubmitFormNewCard(popupAddCard, formAddCard) {
     });
   });
 })();
-
-uploadСards ()
-  .then((photosCards) => {
-    let nummers = [];
-    while (nummers.length < 6) {
-      const nummer = Math.floor(Math.random() * photosCards.length)
-      if (!nummers.some( item => item === nummer)) {
-        const link = photosCards[nummer].link;
-        const imgAlt = `Изображение ${photosCards[nummer].name}`;
-        const name = photosCards[nummer].name;
-        const ownersId = photosCards[nummer].owner._id;
-        const nummerLikes = photosCards[nummer].likes.length;
-        const card = createNewCard(name, imgAlt, link, ownersId, nummerLikes);
-        addNewCard(card);
-        nummers.push(nummer);
-      }
-    }
-  })
-  .catch(() => {
-    const name = 'Перезагрузите страницу';
-    const imgAlt = 'Что-то пошло не так. Перезагрузите страницу';
-    const card = createNewCard(name, imgAlt);
-    addNewCard(card);
-  })
 
 //валидация форм, запуск кода модуля validate
 enableValidation(selectorsForValidate);

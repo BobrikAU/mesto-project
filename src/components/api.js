@@ -1,11 +1,7 @@
-
-const dataUser = {
-  urlCohort: 'https://mesto.nomoreparties.co/v1/plus-cohort-9',
-  token: '7f8d2163-5607-4805-9bb9-bec28100308e'
-}
+import {dataUser} from './utils.js';
 
 //запрос данных для профиля пользователя
-export const makeProfilSection = () => {
+export const uploadProfilSection = () => {
   return fetch(`${dataUser.urlCohort}/users/me`, {
     headers: {
       authorization: dataUser.token
@@ -83,15 +79,37 @@ export const requestAddCard = (cardTitle, cardLink) => {
       link: cardLink
     })
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    }else{
-      return Promise.reject(`Ошибка: ${res.status}`);
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }else{
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      return Promise.reject();
+    })
+}
+
+//запрос на удаление карточки
+export const deleteСard = (card) => {
+  return fetch(`${dataUser.urlCohort}/cards/${card.getAttribute('card_id')}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: dataUser.token
     }
   })
-  .catch((err) => {
-    console.log(err);
-    return Promise.reject();
-  })
+    .then((res) => {
+      if (res.ok) {
+        return res
+      }else{
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      return Promise.reject();
+    })
 }
+
