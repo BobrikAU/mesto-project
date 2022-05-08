@@ -39,7 +39,8 @@ export const selectorsForIndex = {
   classEditProfileButton: 'profile__edit-button',
   classAddPhotoButton: 'profile__add-button',
   classAddCardPopup: 'popup__add-card',
-  classPopup: 'popup'
+  classPopup: 'popup',
+  classLikeActive: 'button__icon-like_aktive'
 };
 
 const selectors = {

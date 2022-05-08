@@ -102,7 +102,7 @@ export const deleteСard = (card) => {
   })
     .then((res) => {
       if (res.ok) {
-        return res
+        return res;
       }else{
         return Promise.reject(`Ошибка: ${res.status}`);
       }
@@ -113,3 +113,23 @@ export const deleteСard = (card) => {
     })
 }
 
+//запрос на добавление или удаление лайка
+export const addLike = (card, requestMethod) => {
+  return fetch (`${dataUser.urlCohort}/cards/likes/${card.getAttribute('card_id')}`, {
+    method: requestMethod,
+    headers: {
+      authorization: dataUser.token
+    }
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }else{
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      return Promise.reject()
+    })
+}

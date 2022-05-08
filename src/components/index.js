@@ -47,6 +47,7 @@ function makeProfilSection() {
 function makeCards() {
   uploadСards ()
     .then((photosCards) => {
+      console.log(photosCards);
       let nummers = [];
       while (nummers.length < 6) {
         const nummer = Math.floor(Math.random() * photosCards.length)
@@ -57,7 +58,11 @@ function makeCards() {
           const ownersId = photosCards[nummer].owner._id;
           const nummerLikes = photosCards[nummer].likes.length;
           const cardId = photosCards[nummer]._id;
-          const card = createNewCard(name, imgAlt, link, ownersId, cardId, nummerLikes);
+          let activeLike = undefined;
+          if (photosCards[nummer].likes.some(item => item._id === dataUser.id)) {
+            activeLike = `${selectors.classLikeActive}`;
+          }
+          const card = createNewCard(name, imgAlt, link, ownersId, cardId, nummerLikes, activeLike);
           addNewCard(card);
           nummers.push(nummer);
         }

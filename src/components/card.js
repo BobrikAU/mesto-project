@@ -5,7 +5,8 @@ import {selectorsForCard as selectors,
         titleInPopupPhoto,
         cardEmpty,
         dataUser} from './utils.js';
-import {deleteСard} from './api.js';
+import {deleteСard,
+        addLike} from './api.js';
 
 // удаление карточки по выбору пользователя
 function removeCard (event) {
@@ -19,7 +20,16 @@ function removeCard (event) {
 // добавление и удаление лайка
 function likeToCard(event) {
   const likeButtonActive = event.target;
-  likeButtonActive.classList.toggle(`${selectors.classLikeActive}`);
+  let requestMethod = 'PUT';
+  if (likeButtonActive.classList.contains(`${selectors.classLikeActive}`)) {
+    requestMethod = 'DELETE';
+  }
+  const cardActive = event.target.closest(`.${selectors.classCard}`);
+  addLike(cardActive, requestMethod)
+    .then((res) => {
+      likeButtonActive.classList.toggle(`${selectors.classLikeActive}`);
+      cardActive.querySelector(`.${selectors.classNummerLikes}`).textContent = res.likes.length;
+    })
 }
 
 // активация модального окна для просмотра фотографии карточки
@@ -33,7 +43,7 @@ function openPhotoInPopup(event, name) {
 }
 
 // функция создания новой карточки
-export function createNewCard(name, imgAlt, link, ownersId, cardId, nummerLikes) {
+export function createNewCard(name, imgAlt, link, ownersId, cardId, nummerLikes, activeLike) {
   const card = cardEmpty.cloneNode(true);
   const photoInCard = card.querySelector(`.${selectors.classPhotoInCard}`);
   photoInCard.src = link;
@@ -43,8 +53,12 @@ export function createNewCard(name, imgAlt, link, ownersId, cardId, nummerLikes)
   const newCard = card.querySelector(`.${selectors.classCard}`);
   newCard.setAttribute('owners_id', ownersId);
   newCard.setAttribute('card_id', cardId);
+  const imgLikeInButton = card.querySelector(`.${selectors.classIconLikeButton}`);
+  if (activeLike) {
+    imgLikeInButton.classList.add(activeLike);
+  }
           // установка слушателя на лайк активной карточки
-  card.querySelector(`.${selectors.classIconLikeButton}`).addEventListener('click', (event) => {
+  imgLikeInButton.addEventListener('click', (event) => {
     likeToCard(event, selectors);
   });
           // установка слушателя на открытие фотографии активной карточки в модальном окне
