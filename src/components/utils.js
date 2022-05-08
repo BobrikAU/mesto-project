@@ -40,7 +40,8 @@ export const selectorsForIndex = {
   classAddPhotoButton: 'profile__add-button',
   classAddCardPopup: 'popup__add-card',
   classPopup: 'popup',
-  classLikeActive: 'button__icon-like_aktive'
+  classLikeActive: 'button__icon-like_aktive',
+  classAvatarContainer: 'profile__avatar-container'
 };
 
 const selectors = {
@@ -55,6 +56,7 @@ const selectors = {
   classEditProfilePopupName: 'popup__name-field',
   classEditProfilePopupYourself: 'popup__field-yourself',
   classButtonSubmit: 'popup__submit',
+  classPopupEditAvatar: 'popup__edit-avatar',
   classProfileAvatar: 'profile__avatar'
 }
 
@@ -70,6 +72,7 @@ export const popupEditProfile = document.querySelector(`.${selectors.classEditPr
 export const popupProfileName = popupEditProfile.querySelector(`.${selectors.classEditProfilePopupName}`);
 export const popupProfileSelf = popupEditProfile.querySelector(`.${selectors.classEditProfilePopupYourself}`);
 export const buttonSubmitProfile = popupEditProfile.querySelector(`.${selectors.classButtonSubmit}`);
+export const popupEditAvatar = document.querySelector(`.${selectors.classPopupEditAvatar}`);
 
 /*export const photosCards = [
   {

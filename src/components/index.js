@@ -10,7 +10,8 @@ import {selectorsForIndex as selectors,
         listCards,
         buttonSubmitProfile,
         profileAvatar,
-        dataUser} from './utils.js';
+        dataUser,
+        popupEditAvatar} from './utils.js';
 import {enableValidation,
         clearErrors,
         makeButtonInactive} from './validate.js';
@@ -21,7 +22,8 @@ import {createNewCard} from './card.js';
 import {uploadProfilSection,
         uploadСards,
         requestProfileEditing,
-        requestAddCard} from './api.js';
+        requestAddCard,
+        requestEditAvatar} from './api.js';
 
 //загрузка информации о пользователе с сервера и вывод на экран
 function makeProfilSection() {
@@ -47,7 +49,6 @@ function makeProfilSection() {
 function makeCards() {
   uploadСards ()
     .then((photosCards) => {
-      console.log(photosCards);
       let nummers = [];
       while (nummers.length < 6) {
         const nummer = Math.floor(Math.random() * photosCards.length)
@@ -178,6 +179,32 @@ function prepareSubmitFormNewCard(popupAddCard, formAddCard) {
     });
   });
 })();
+
+//установка слушателя на вызов окна редактирования аватара пользователя
+document.querySelector(`.${selectors.classAvatarContainer}`).addEventListener('click', () => {
+  openPopup(popupEditAvatar);
+});
+
+function editAvatar(event) {
+  event.preventDefault();
+  const avatarURL = popupEditAvatar.querySelector(`.${selectors.classInputTextPopups}`).value;
+  requestEditAvatar(avatarURL)
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+//установка слушателя на отправку формы модального окна редактирования аватара
+popupEditAvatar.querySelector(`.${selectors.classFromPopup}`).addEventListener('submit', editAvatar)
 
 //валидация форм, запуск кода модуля validate
 enableValidation(selectorsForValidate);

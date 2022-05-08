@@ -3,13 +3,5 @@
   height: 120px;
   object-fit: cover;
   border-radius: 60px;
-  margin-top: 41px;
 }
 
-@media screen and (max-width: 700px) {
-  .profile__avatar {
-    grid-area: avatar;
-    margin-top: 42px;
-    justify-self: center;
-  }
-}

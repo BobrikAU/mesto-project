@@ -133,3 +133,27 @@ export const addLike = (card, requestMethod) => {
       return Promise.reject()
     })
 }
+
+export const requestEditAvatar = (avatarURL) => {
+  return fetch(`${dataUser.urlCohort}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: {
+      authorization: dataUser.token,
+      'Content-Type': 'aplication/json'
+    },
+    body: JSON.stringify({
+      avatar: avatarURL
+    })
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }else{
+        return Promise.reject(`Ошибка: ${res.status}`)
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      return Promise.reject();
+    })
+}
