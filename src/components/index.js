@@ -182,6 +182,14 @@ function prepareSubmitFormNewCard(popupAddCard, formAddCard) {
 
 //установка слушателя на вызов окна редактирования аватара пользователя
 document.querySelector(`.${selectors.classAvatarContainer}`).addEventListener('click', () => {
+  const buttonEditAvatar = popupEditAvatar.querySelector(`.${selectors.classButtonSubmit}`);
+  const formEditAvatar = popupEditAvatar.querySelector(`.${selectors.classFromPopup}`);
+  makeButtonInactive(buttonEditAvatar, selectors.classButtonSubmitDisabled);
+  formEditAvatar.reset();
+  clearErrors(popupEditAvatar,
+              selectors.classSpanWithInputError,
+              selectors.classInputTextPopups,
+              selectors.classInputTextError);
   openPopup(popupEditAvatar);
 });
 
@@ -189,18 +197,10 @@ function editAvatar(event) {
   event.preventDefault();
   const avatarURL = popupEditAvatar.querySelector(`.${selectors.classInputTextPopups}`).value;
   requestEditAvatar(avatarURL)
-
-
-
-
-
-
-
-
-
-
-
-
+    .then((objectUser) => {
+      profileAvatar.src = objectUser.avatar;
+      profileAvatar.onload = closePopup(popupEditAvatar);
+    })
 }
 
 //установка слушателя на отправку формы модального окна редактирования аватара

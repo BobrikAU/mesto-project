@@ -139,7 +139,7 @@ export const requestEditAvatar = (avatarURL) => {
     method: 'PATCH',
     headers: {
       authorization: dataUser.token,
-      'Content-Type': 'aplication/json'
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       avatar: avatarURL
