@@ -70,7 +70,7 @@ export function createNewCard(name, imgAlt, link, ownersId, cardId, nummerLikes,
     trashButton.classList.remove('button_hidden');
           // установка слушателя на удаление карточки
     trashButton.addEventListener('click', (event) => {
-      removeCard(event, selectors);
+      removeCard(event);
     });
   }
   return card;
