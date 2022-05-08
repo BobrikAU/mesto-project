@@ -73,6 +73,7 @@ export const popupProfileName = popupEditProfile.querySelector(`.${selectors.cla
 export const popupProfileSelf = popupEditProfile.querySelector(`.${selectors.classEditProfilePopupYourself}`);
 export const buttonSubmitProfile = popupEditProfile.querySelector(`.${selectors.classButtonSubmit}`);
 export const popupEditAvatar = document.querySelector(`.${selectors.classPopupEditAvatar}`);
+export const buttonEditAvatar = popupEditAvatar.querySelector(`.${selectors.classButtonSubmit}`);
 
 /*export const photosCards = [
   {

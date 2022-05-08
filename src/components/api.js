@@ -134,6 +134,7 @@ export const addLike = (card, requestMethod) => {
     })
 }
 
+//запрос на редактирование аватара пользователя
 export const requestEditAvatar = (avatarURL) => {
   return fetch(`${dataUser.urlCohort}/users/me/avatar`, {
     method: 'PATCH',

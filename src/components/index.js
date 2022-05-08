@@ -11,7 +11,8 @@ import {selectorsForIndex as selectors,
         buttonSubmitProfile,
         profileAvatar,
         dataUser,
-        popupEditAvatar} from './utils.js';
+        popupEditAvatar,
+        buttonEditAvatar} from './utils.js';
 import {enableValidation,
         clearErrors,
         makeButtonInactive} from './validate.js';
@@ -91,7 +92,10 @@ function openPopupEditProfile() {
   popupProfileName.value = profileName.textContent;
   popupProfileSelf.value = profileSelf.textContent;
   makeButtonInactive(buttonSubmitProfile, selectors.classButtonSubmitDisabled);
-  clearErrors(popupEditProfile, selectors.classSpanWithInputError, selectors.classInputTextPopups, selectors.classInputTextError)
+  clearErrors(popupEditProfile,
+              selectors.classSpanWithInputError,
+              selectors.classInputTextPopups,
+              selectors.classInputTextError)
   openPopup(popupEditProfile);
 }
 
@@ -106,11 +110,13 @@ function openPopupEditProfile() {
           //обработка запроса на редактирование профиля
 function editProfile(event) {
   event.preventDefault();
+  buttonSubmitProfile.textContent = 'Сохранение...';
   requestProfileEditing(popupProfileName.value, popupProfileSelf.value)
     .then((newProfile) => {
       profileName.textContent = newProfile.name;
       profileSelf.textContent = newProfile.about;
       closePopup(popupEditProfile);
+      buttonSubmitProfile.textContent = 'Сохранить';
     })
 }
 
@@ -130,8 +136,9 @@ function addNewCard(card) {
 };
 
           // обработка запроса пользователя на добавление новой карточки
-function addCardUser(event, popupAddCard, formAddCard) {
+function addCardUser(event, popupAddCard, formAddCard, buttonSubmitCard) {
   event.preventDefault();
+  buttonSubmitCard.textContent = 'Сохранение...';
   requestAddCard(formAddCard.title.value, formAddCard.link.value)
     .then((objectNewCard) => {
       const card = createNewCard(objectNewCard.name,
@@ -142,13 +149,14 @@ function addCardUser(event, popupAddCard, formAddCard) {
                                  objectNewCard.likes.length);
       addNewCard(card);
       closePopup(popupAddCard);
+      buttonSubmitCard.textContent = 'Сохранить';
     })
 }
 
           // установка слушателя на отправку формы с данными для новой карточки
-function prepareSubmitFormNewCard(popupAddCard, formAddCard) {
+function prepareSubmitFormNewCard(popupAddCard, formAddCard, buttonSubmitCard) {
   formAddCard.addEventListener('submit', (event) => {
-    addCardUser(event, popupAddCard, formAddCard);
+    addCardUser(event, popupAddCard, formAddCard, buttonSubmitCard);
   });
 }
 
@@ -167,7 +175,7 @@ function prepareSubmitFormNewCard(popupAddCard, formAddCard) {
                 selectors.classInputTextError);
     openPopup(popupAddCard);
   });
-  prepareSubmitFormNewCard(popupAddCard, formAddCard);
+  prepareSubmitFormNewCard(popupAddCard, formAddCard, buttonSubmitCard);
 })();
 
 // установка слушателей на закрытие модальных окон нажатием на кнопку закрытия попапа и оверлей
@@ -182,7 +190,6 @@ function prepareSubmitFormNewCard(popupAddCard, formAddCard) {
 
 //установка слушателя на вызов окна редактирования аватара пользователя
 document.querySelector(`.${selectors.classAvatarContainer}`).addEventListener('click', () => {
-  const buttonEditAvatar = popupEditAvatar.querySelector(`.${selectors.classButtonSubmit}`);
   const formEditAvatar = popupEditAvatar.querySelector(`.${selectors.classFromPopup}`);
   makeButtonInactive(buttonEditAvatar, selectors.classButtonSubmitDisabled);
   formEditAvatar.reset();
@@ -193,13 +200,16 @@ document.querySelector(`.${selectors.classAvatarContainer}`).addEventListener('c
   openPopup(popupEditAvatar);
 });
 
+//отработка события отправки формы редактирования аватара пользователя
 function editAvatar(event) {
   event.preventDefault();
+  buttonEditAvatar.textContent = 'Сохранение...';
   const avatarURL = popupEditAvatar.querySelector(`.${selectors.classInputTextPopups}`).value;
   requestEditAvatar(avatarURL)
     .then((objectUser) => {
       profileAvatar.src = objectUser.avatar;
       profileAvatar.onload = closePopup(popupEditAvatar);
+      buttonEditAvatar.textContent = 'Сохранить';
     })
 }
 
