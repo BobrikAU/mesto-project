@@ -1,44 +1,28 @@
 import {dataUser} from './utils.js';
 
-//запрос данных для профиля пользователя
-export const uploadProfilSection = () => {
-  return fetch(`${dataUser.urlCohort}/users/me`, {
-    headers: {
-      authorization: dataUser.token
-    }
-  })
-    .then ((res) => {
-      if (res.ok) {
-        return res.json()
-      }else{
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject(err);
-    })
+//проверка ответа на запрос и его первичная обработка
+const _checkResponse = res => {
+  if (res.ok) {
+    return res.json()
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-//запрос данных для автоматического заполнения страницы карточками при загрузке
-export const uploadСards = () => {
-  return fetch(`${dataUser.urlCohort}/cards`, {
+//запрос данных для профиля пользователя
+export const uploadProfile = fetch(`${dataUser.urlCohort}/users/me`, {
     headers: {
       authorization: dataUser.token
     }
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }else{
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err)
-      return Promise.reject()
-    });
-}
+  .then (_checkResponse);
+
+//запрос данных для автоматического заполнения страницы карточками при загрузке
+export const uploadСards = fetch(`${dataUser.urlCohort}/cards`, {
+    headers: {
+      authorization: dataUser.token
+    }
+  })
+  .then(_checkResponse);
 
 //запрос на редактирование профиля пользователя
 export const requestProfileEditing = (nameUser, aboutUser) => {
@@ -53,17 +37,7 @@ export const requestProfileEditing = (nameUser, aboutUser) => {
       about: aboutUser
     })
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }else{
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject();
-    })
+    .then(_checkResponse)
 }
 
 //запрос на добавление новой карточки на сервер
@@ -79,17 +53,7 @@ export const requestAddCard = (cardTitle, cardLink) => {
       link: cardLink
     })
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }else{
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject();
-    })
+    .then(_checkResponse)
 }
 
 //запрос на удаление карточки
@@ -100,17 +64,7 @@ export const deleteСard = (card) => {
       authorization: dataUser.token
     }
   })
-    .then((res) => {
-      if (res.ok) {
-        return res;
-      }else{
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject();
-    })
+    .then(_checkResponse)
 }
 
 //запрос на добавление или удаление лайка
@@ -121,17 +75,7 @@ export const addLike = (card, requestMethod) => {
       authorization: dataUser.token
     }
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }else{
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject()
-    })
+    .then(_checkResponse)
 }
 
 //запрос на редактирование аватара пользователя
@@ -146,15 +90,5 @@ export const requestEditAvatar = (avatarURL) => {
       avatar: avatarURL
     })
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }else{
-        return Promise.reject(`Ошибка: ${res.status}`)
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject();
-    })
+    .then(_checkResponse)
 }

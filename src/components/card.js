@@ -15,6 +15,9 @@ function removeCard (event) {
     .then(() => {
       cardActive.remove();
     })
+    .catch((err) => {
+      console.log(err);
+    })
 }
 
 // добавление и удаление лайка
@@ -29,6 +32,9 @@ function likeToCard(event) {
     .then((res) => {
       likeButtonActive.classList.toggle(`${selectors.classLikeActive}`);
       cardActive.querySelector(`.${selectors.classNummerLikes}`).textContent = res.likes.length;
+    })
+    .catch((err) => {
+      console.log(err);
     })
 }
 

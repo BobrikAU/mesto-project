@@ -1,7 +1,6 @@
 import './../pages/index.css';
 import {selectorsForIndex as selectors,
         selectorsForValidate,
-        //photosCards,
         profileName,
         profileSelf,
         popupEditProfile,
@@ -12,7 +11,8 @@ import {selectorsForIndex as selectors,
         profileAvatar,
         dataUser,
         popupEditAvatar,
-        buttonEditAvatar} from './utils.js';
+        buttonEditAvatar,
+        inputPopupEditAvatar} from './utils.js';
 import {enableValidation,
         clearErrors,
         makeButtonInactive} from './validate.js';
@@ -20,72 +20,58 @@ import {openPopup,
         closePopup,
         closeWithButtonOderClickingOverlay} from './modal.js';
 import {createNewCard} from './card.js';
-import {uploadProfilSection,
+import {uploadProfile,
         uploadСards,
         requestProfileEditing,
         requestAddCard,
         requestEditAvatar} from './api.js';
 
-//загрузка информации о пользователе с сервера и вывод на экран
-function makeProfilSection() {
-  uploadProfilSection()
-    .then((user) => {
-      profileName.textContent = user.name;
-      dataUser.id = user._id;
-      profileSelf.textContent = user.about;
-      profileAvatar.src = user.avatar;
-      profileAvatar.alt = `аватар ${user.name}`;
-    })
-    .catch((err) => {
-      if (typeof(err) === 'string') {
-        profileName.textContent = err;
-      }else{
-        profileName.textContent = 'Что-то не так';
-      }
-      profileSelf.textContent = 'Попробуйте перезагрузить страницу';
-    });
+//вывод загруженной информации о пользователе на экран
+function makeProfilSection(user) {
+  profileName.textContent = user.name;
+  dataUser.id = user._id;
+  profileSelf.textContent = user.about;
+  profileAvatar.src = user.avatar;
+  profileAvatar.alt = `аватар ${user.name}`;
 }
 
-//автоматическая загрузка 6 карточек при загрузке
-function makeCards() {
-  uploadСards ()
-    .then((photosCards) => {
-      let nummers = [];
-      while (nummers.length < 6) {
-        const nummer = Math.floor(Math.random() * photosCards.length)
-        if (!nummers.some( item => item === nummer)) {
-          const link = photosCards[nummer].link;
-          const imgAlt = `Изображение ${photosCards[nummer].name}`;
-          const name = photosCards[nummer].name;
-          const ownersId = photosCards[nummer].owner._id;
-          const nummerLikes = photosCards[nummer].likes.length;
-          const cardId = photosCards[nummer]._id;
-          let activeLike = undefined;
-          if (photosCards[nummer].likes.some(item => item._id === dataUser.id)) {
-            activeLike = `${selectors.classLikeActive}`;
-          }
-          const card = createNewCard(name, imgAlt, link, ownersId, cardId, nummerLikes, activeLike);
-          addNewCard(card);
-          nummers.push(nummer);
-        }
+//автоматическое формирование 6 карточек при загрузке
+function makeCards(photosCards) {
+  let nummers = [];
+  while (nummers.length < 6) {
+    const nummer = Math.floor(Math.random() * photosCards.length)
+    if (!nummers.some( item => item === nummer)) {
+      const link = photosCards[nummer].link;
+      const imgAlt = `Изображение ${photosCards[nummer].name}`;
+      const name = photosCards[nummer].name;
+      const ownersId = photosCards[nummer].owner._id;
+      const nummerLikes = photosCards[nummer].likes.length;
+      const cardId = photosCards[nummer]._id;
+      let activeLike = undefined;
+      if (photosCards[nummer].likes.some(item => item._id === dataUser.id)) {
+        activeLike = `${selectors.classLikeActive}`;
       }
-    })
-    .catch(() => {
-      const name = 'Перезагрузите страницу';
-      const imgAlt = 'Что-то пошло не так. Перезагрузите страницу';
-      const card = createNewCard(name, imgAlt);
+      const card = createNewCard(name, imgAlt, link, ownersId, cardId, nummerLikes, activeLike);
       addNewCard(card);
-    })
+      nummers.push(nummer);
+    }
+  }
 }
 
-//определение последовательности действий при загрузке
-Promise.resolve()
-  .then(() => {
-    makeProfilSection();
+//Инициация запроса информации о пользователе и карточках
+Promise.all([uploadProfile, uploadСards])
+  .then((results) => {
+    makeProfilSection(results[0]);
+    makeCards(results[1]);
   })
-  .then(() => {
-    makeCards();
-  });
+  .catch((err) => {
+    if (typeof(err) === 'string') {
+      profileName.textContent = err;
+    }else{
+      profileName.textContent = 'Что-то не так';
+    }
+    profileSelf.textContent = 'Попробуйте перезагрузить страницу';
+  })
 
 // вывод окна редактирования профиля на экран
 function openPopupEditProfile() {
@@ -116,6 +102,11 @@ function editProfile(event) {
       profileName.textContent = newProfile.name;
       profileSelf.textContent = newProfile.about;
       closePopup(popupEditProfile);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
       buttonSubmitProfile.textContent = 'Сохранить';
     })
 }
@@ -149,6 +140,11 @@ function addCardUser(event, popupAddCard, formAddCard, buttonSubmitCard) {
                                  objectNewCard.likes.length);
       addNewCard(card);
       closePopup(popupAddCard);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
       buttonSubmitCard.textContent = 'Сохранить';
     })
 }
@@ -204,11 +200,16 @@ document.querySelector(`.${selectors.classAvatarContainer}`).addEventListener('c
 function editAvatar(event) {
   event.preventDefault();
   buttonEditAvatar.textContent = 'Сохранение...';
-  const avatarURL = popupEditAvatar.querySelector(`.${selectors.classInputTextPopups}`).value;
+  const avatarURL = inputPopupEditAvatar.value;
   requestEditAvatar(avatarURL)
     .then((objectUser) => {
       profileAvatar.src = objectUser.avatar;
       profileAvatar.onload = closePopup(popupEditAvatar);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
       buttonEditAvatar.textContent = 'Сохранить';
     })
 }
