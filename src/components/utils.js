@@ -58,7 +58,8 @@ const selectors = {
   classButtonSubmit: 'popup__submit',
   classPopupEditAvatar: 'popup__edit-avatar',
   classProfileAvatar: 'profile__avatar',
-  classInputTextPopups: 'popup__input-text'
+  classInputTextPopups: 'popup__input-text',
+  classPopupApproval: 'popup__approval-delete'
 }
 
 export const popupPhotoCard = document.querySelector(`.${selectors.classPopupPhoto}`);
@@ -76,3 +77,6 @@ export const buttonSubmitProfile = popupEditProfile.querySelector(`.${selectors.
 export const popupEditAvatar = document.querySelector(`.${selectors.classPopupEditAvatar}`);
 export const buttonEditAvatar = popupEditAvatar.querySelector(`.${selectors.classButtonSubmit}`);
 export const inputPopupEditAvatar = popupEditAvatar.querySelector(`.${selectors.classInputTextPopups}`);
+export const popupApprovalDelete = document.querySelector(`.${selectors.classPopupApproval}`);
+export const formApprovalDelete = document.forms.approvalDelete;
+export const buttonApprovalDelete = formApprovalDelete.querySelector(`.${selectors.classButtonSubmit}`);

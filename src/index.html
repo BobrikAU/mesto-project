@@ -103,6 +103,17 @@
     </div>
   </div>
 
+  <!--модальное окно получения согласия на удаление карточки-->
+  <div class="popup popup__approval-delete">
+    <div class="popup__container popup__container_size_smallest">
+      <button type="button" class="button button_function_close-popup popup__close-button"><img src="<%=require('./images/icon-close.svg')%>" alt="иконка закрытия окна редактирования профиля" class="button__icon-close"></button>
+      <h2 class="popup__title">Вы уверены?</h2>
+      <form name="approvalDelete" class="popup__form">
+        <button type="submit" class="popup__submit popup__submit_function_approval">Да</button>
+      </form>
+    </div>
+  </div>
+
   <!--пустая форма для карточки с фотографией-->
   <template id="empty-item">
     <li class="photos__item">

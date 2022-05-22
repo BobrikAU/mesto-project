@@ -1,19 +1,26 @@
-import {openPopup} from './modal.js';
+import {openPopup,
+        closePopup} from './modal.js';
 import {selectorsForCard as selectors,
         popupPhotoCard,
         photoInPopup,
         titleInPopupPhoto,
         cardEmpty,
-        dataUser} from './utils.js';
+        dataUser,
+        popupApprovalDelete,
+        buttonApprovalDelete} from './utils.js';
 import {deleteСard,
         addLike} from './api.js';
 
+let cardActive = undefined;
+
+
 // удаление карточки по выбору пользователя
-function removeCard (event) {
-  const cardActive = event.target.closest(`.${selectors.classCard}`);
+export function removeCard() {
   deleteСard(cardActive)
     .then(() => {
       cardActive.remove();
+      closePopup(popupApprovalDelete);
+      buttonApprovalDelete.textContent = 'Да';
     })
     .catch((err) => {
       console.log(err);
@@ -76,7 +83,9 @@ export function createNewCard(name, imgAlt, link, ownersId, cardId, nummerLikes,
     trashButton.classList.remove('button_hidden');
           // установка слушателя на удаление карточки
     trashButton.addEventListener('click', (event) => {
-      removeCard(event);
+      cardActive = event.target.closest(`.${selectors.classCard}`);
+      openPopup(popupApprovalDelete, cardActive);
+//      removeCard(event);
     });
   }
   return card;

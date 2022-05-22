@@ -12,14 +12,18 @@ import {selectorsForIndex as selectors,
         dataUser,
         popupEditAvatar,
         buttonEditAvatar,
-        inputPopupEditAvatar} from './utils.js';
+        inputPopupEditAvatar,
+        popupApprovalDelete,
+        formApprovalDelete,
+        buttonApprovalDelete} from './utils.js';
 import {enableValidation,
         clearErrors,
         makeButtonInactive} from './validate.js';
 import {openPopup,
         closePopup,
         closeWithButtonOderClickingOverlay} from './modal.js';
-import {createNewCard} from './card.js';
+import {createNewCard,
+        removeCard} from './card.js';
 import {uploadProfile,
         uploadСards,
         requestProfileEditing,
@@ -216,6 +220,13 @@ function editAvatar(event) {
 
 //установка слушателя на отправку формы модального окна редактирования аватара
 popupEditAvatar.querySelector(`.${selectors.classFromPopup}`).addEventListener('submit', editAvatar)
+
+//установка слушателя на согласие на удаление карточки
+formApprovalDelete.addEventListener('submit', (event) => {
+  event.preventDefault();
+  buttonApprovalDelete.textContent = 'Удаление...'
+  removeCard();
+})
 
 //валидация форм, запуск кода модуля validate
 enableValidation(selectorsForValidate);

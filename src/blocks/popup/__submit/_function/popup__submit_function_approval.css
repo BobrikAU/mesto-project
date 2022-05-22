@@ -1,0 +1,11 @@
+.popup__submit_function_approval{
+  margin: 14px 36px 0;
+  width: calc(100% -72px);
+}
+
+@media screen and (max-width: 700px) {
+  .popup__submit_function_approval{
+    margin: 14px 22px 0;
+    width: calc(100% - 44px);
+  }
+}
