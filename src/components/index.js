@@ -35,27 +35,22 @@ function makeProfilSection(user) {
   profileAvatar.alt = `аватар ${user.name}`;
 }
 
-//автоматическое формирование 6 карточек при загрузке
+//формирование карточек
 function makeCards(photosCards) {
-  let nummers = [];
-  while (nummers.length < 6) {
-    const nummer = Math.floor(Math.random() * photosCards.length)
-    if (!nummers.some( item => item === nummer)) {
-      const link = photosCards[nummer].link;
-      const imgAlt = `Изображение ${photosCards[nummer].name}`;
-      const name = photosCards[nummer].name;
-      const ownersId = photosCards[nummer].owner._id;
-      const nummerLikes = photosCards[nummer].likes.length;
-      const cardId = photosCards[nummer]._id;
-      let activeLike = undefined;
-      if (photosCards[nummer].likes.some(item => item._id === dataUser.id)) {
-        activeLike = `${selectors.classLikeActive}`;
-      }
-      const card = createNewCard(name, imgAlt, link, ownersId, cardId, nummerLikes, activeLike);
-      addNewCard(card);
-      nummers.push(nummer);
+  photosCards.forEach((item) => {
+    const link = item.link;
+    const imgAlt = `Изображение ${item.name}`;
+    const name = item.name;
+    const ownersId = item.owner._id;
+    const nummerLikes = item.likes.length;
+    const cardId = item._id;
+    let activeLike = undefined;
+    if (item.likes.some(item => item._id === dataUser.id)) {
+      activeLike = `${selectors.classLikeActive}`;
     }
-  }
+    const card = createNewCard(name, imgAlt, link, ownersId, cardId, nummerLikes, activeLike);
+    addNewCard(card);
+  });
 }
 
 //Инициация запроса информации о пользователе и карточках
